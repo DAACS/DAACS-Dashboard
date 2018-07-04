@@ -1,4 +1,4 @@
-Goal orientation refers to the reasons people engage in learning. Two types of goal orientation include mastery orientation and performance orientation. People with a mastery orientation want to master skills and gain knowledge. In contrast, people with a performance orientation want to perform well so they appear intelligent or capable to others. Most people have a combination of both types of goal orientation, but good learners tend to be more mastery oriented.
+Goal orientation refers to the reasons people engage in learning. Two types of goal orientation include *mastery orientation* and *performance orientation*. People with a mastery orientation want to master skills and gain knowledge. In contrast, people with a performance orientation want to perform well so they appear intelligent or capable to others. Most people have a combination of both types of goal orientation, but good learners tend to be more mastery oriented.
 
 Offer these suggestions to your students to help them enhance their mastery orientation:
 * Don't worry about how others perform; focus on your own growth and learning.

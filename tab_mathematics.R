@@ -1,6 +1,7 @@
 output$mathTab <- renderUI({
 	results <- getResults()
-	math <- results[results$assessmentCategory == 'MATHEMATICS',]
+	math <- results[results$assessmentCategory == 'MATHEMATICS' &
+					results$status == 'GRADED',]
 
 	if(nrow(math) == 0) {
 		return(mainPanel(p("No mathematics assessments have been completed.")))
@@ -20,7 +21,8 @@ output$mathTab <- renderUI({
 
 output$mathTakenDate <- renderUI({
 	results <- getResults()
-	math <- results[results$assessmentCategory == 'MATHEMATICS',]
+	math <- results[results$assessmentCategory == 'MATHEMATICS' &
+					results$status == 'GRADED',]
 	math <- math[order(math$takenDate, decreasing = TRUE),]
 	completions <- seq_len(nrow(math))
 	names(completions) <- format(math$takenDate, format = '%B %d, %Y, %H:%M')
@@ -29,7 +31,8 @@ output$mathTakenDate <- renderUI({
 
 output$mathDomain <- renderUI({
 	results <- getResults()
-	math <- results[results$assessmentCategory == 'MATHEMATICS',]
+	math <- results[results$assessmentCategory == 'MATHEMATICS' &
+					results$status == 'GRADED',]
 	math <- math[order(math$takenDate, decreasing = TRUE),]
 	math.result <- math[as.integer(input$mathTakenDate), ]
 
@@ -45,7 +48,8 @@ output$mathPlot <- renderPlot({
 	req(input$mathDomain)
 
 	results <- getResults()
-	math <- results[results$assessmentCategory == 'MATHEMATICS',]
+	math <- results[results$assessmentCategory == 'MATHEMATICS' &
+					results$status == 'GRADED',]
 	math <- math[order(math$takenDate, decreasing = TRUE),]
 	math.result <- math[as.integer(input$mathTakenDate), ]
 

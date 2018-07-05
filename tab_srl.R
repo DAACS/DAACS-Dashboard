@@ -1,6 +1,7 @@
 output$srlTab <- renderUI({
 	results <- getResults()
-	srl <- results[results$assessmentCategory == 'COLLEGE_SKILLS',]
+	srl <- results[results$assessmentCategory == 'COLLEGE_SKILLS' &
+				   results$status == 'GRADED',]
 
 	if(nrow(srl) == 0) {
 		return(mainPanel(p("No self-regulated learning assessments have been completed.")))
@@ -20,7 +21,8 @@ output$srlTab <- renderUI({
 
 output$srlTakenDate <- renderUI({
 	results <- getResults()
-	srl <- results[results$assessmentCategory == 'COLLEGE_SKILLS',]
+	srl <- results[results$assessmentCategory == 'COLLEGE_SKILLS' &
+				   results$status == 'GRADED',]
 	srl <- srl[order(srl$takenDate, decreasing = TRUE),]
 	completions <- seq_len(nrow(srl))
 	names(completions) <- format(srl$takenDate, format = '%B %d, %Y, %H:%M')
@@ -29,7 +31,8 @@ output$srlTakenDate <- renderUI({
 
 output$srlDomain <- renderUI({
 	results <- getResults()
-	srl <- results[results$assessmentCategory == 'COLLEGE_SKILLS',]
+	srl <- results[results$assessmentCategory == 'COLLEGE_SKILLS' &
+				   results$status == 'GRADED',]
 	srl <- srl[order(srl$takenDate, decreasing = TRUE),]
 	srl.result <- srl[as.integer(input$srlTakenDate), ]
 
@@ -52,7 +55,8 @@ output$srlDomain <- renderUI({
 
 output$srlLongitudinalPlot <- renderPlot({
 	results <- getResults()
-	srl <- results[results$assessmentCategory == 'COLLEGE_SKILLS',]
+	srl <- results[results$assessmentCategory == 'COLLEGE_SKILLS' &
+				   results$status == 'GRADED',]
 
 	if(nrow(srl) < 2) { return() }
 
@@ -78,7 +82,8 @@ output$srlPlot <- renderPlot({
 	req(input$srlDomain)
 
 	results <- getResults()
-	srl <- results[results$assessmentCategory == 'COLLEGE_SKILLS',]
+	srl <- results[results$assessmentCategory == 'COLLEGE_SKILLS' &
+				   results$status == 'GRADED',]
 	srl <- srl[order(srl$takenDate, decreasing = TRUE),]
 	srl.result <- srl[as.integer(input$srlTakenDate), ]
 

@@ -2,10 +2,17 @@ shinyServer(function(input, output, session) {
 	source("Login.R",  local = TRUE)
 
 	getResults <- reactive({
-		results <- getUserResults(USER$Username) # TODO: use search box if admin
-		results$takenDate <- as.POSIXct(results$takenDate, origin = '1970-01-01')
-		results$completionDate <- as.POSIXct(results$completionDate, origin = '1970-01-01')
-		results <- results[order(results$takenDate, decreasing = TRUE),]
+		results <- data.frame()
+		if(USER$Role %in% c('ROLE_ADMIN', 'ROLE_ADVISOR')) {
+			results <- getUserResults(input$userSearch)
+		} else {
+			results <- getUserResults(USER$Username) # TODO: use search box if admin
+		}
+		if(nrow(results) > 0) {
+			results$takenDate <- as.POSIXct(results$takenDate, origin = '1970-01-01')
+			results$completionDate <- as.POSIXct(results$completionDate, origin = '1970-01-01')
+			results <- results[order(results$takenDate, decreasing = TRUE),]
+		}
 		return(results)
 	})
 
@@ -24,9 +31,21 @@ shinyServer(function(input, output, session) {
 	})
 
 	output$dashboard.search <- renderUI({
-		if(USER$Role == 'ROLE_ADMIN') {
-			sidebarSearchForm(textId = "searchText", buttonId = "searchButton",
-			 				  label = "Search...")
+		if(USER$Role %in% c('ROLE_ADMIN', 'ROLE_ADVISOR')) {
+			# sidebarSearchForm(textId = "searchText", buttonId = "searchButton",
+			#  				  label = "Search...")
+			users <- getUsers()
+			# selectizeInput('searchText', label = 'Search',
+			# 			   choices = users$username,
+			# 			   multiple = FALSE)
+			value <- ''
+			selectedRow <- input$userDT_rows_selected
+			if(!is.null(selectedRow)) {
+				users <- getUsers()
+				value <- users[selectedRow,]$username
+			}
+			typeaheadInput('userSearch', 'Student search...', value = value,
+						   choices = users$username)
 		}
 	})
 
@@ -52,6 +71,9 @@ shinyServer(function(input, output, session) {
 			if(sum(results$assessmentCategory == 'WRITING') > 0) {
 				panels[[length(panels) + 1]] <- menuItem("Writing", tabName = "writing")
 			}
+			if(USER$Role %in% c('ROLE_ADMIN')) {
+				panels[[length(panels) + 1]] <- menuItem("Admin", tabName = 'admin')
+			}
 
 			panel <- do.call(sidebarMenu, args = panels)
 		} else {
@@ -69,7 +91,8 @@ shinyServer(function(input, output, session) {
 				tabItem('srl', uiOutput('srlTab')),
 				tabItem('mathematics', uiOutput('mathTab')),
 				tabItem('reading', uiOutput('readTab')),
-				tabItem('writing', uiOutput('writingTab'))
+				tabItem('writing', uiOutput('writingTab')),
+				tabItem('admin', uiOutput('adminTab'))
 			)
 		} else {
 			panel <- tabItem("login",
@@ -99,5 +122,8 @@ shinyServer(function(input, output, session) {
 
 	##### Reading ##############################################################
 	source('tab_reading.R', local = TRUE)
+
+	##### Administration #######################################################
+	source('tab_admin.R', local = TRUE)
 
 })

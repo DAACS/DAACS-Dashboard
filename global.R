@@ -8,8 +8,11 @@ library(markdown)
 library(readxl)
 library(pander)
 library(stringr)
+library(DT)
 # devtools::install_github("nik01010/dashboardthemes")
 library(dashboardthemes)
+# devtools::install_github("ThomasSiegmund/shinyTypeahead")
+library(shinyTypeahead)
 
 source('config.R')
 
@@ -56,6 +59,19 @@ getUserResults <- function(username) {
 		#
 		results <- m.user_assessments$find(paste0('{"username":"', username, '"}'))
 	}
+	return(results)
+}
+
+#' Return all users
+getUsers <- function() {
+	results <- NULL
+	if(LOCAL_DB) {
+		results <- users
+	} else {
+		results <- m.users$find()
+	}
+	results$role <- sapply(results$roles, FUN = function(x) { paste0(x, collapse = ', ')} )
+	results$createdDate <- as.POSIXct(results$createdDate, origin = '1970-01-01')
 	return(results)
 }
 
@@ -109,6 +125,20 @@ getStudentResponses <- function(srl, studentRow) {
 	}
 	return(studentdf)
 }
+
+# srl[1,]$itemGroups[[1]]
+#
+# anw <- srl[1,]$itemGroups[[1]][1,]$items[[1]]$chosenItemAnswerId
+# srl[1,]$itemGroups[[1]][1,]$items[[1]]$possibleItemAnswers
+#
+# apply(srl[1,]$itemGroups[[1]][1,]$items[[1]], 1, FUN = function(x1) {
+# 	x1$possibleItemAnswers[[1]][x1$chosenItemAnswerId == x1$possibleItemAnswers[[1]]$`_id`,]$score
+# })
+#
+# mapply(function(chosenAnswer, possibleAnswers) {
+# 	print(possibleAnswers)
+# 	# possibleAnswers[possibleAnswers$`_id` == chosenAnswer,]$score
+# }, srl[1,]$itemGroups[[1]]$items[[1]]$chosenItemAnswerId, srl[1,]$itemGroups[[1]]$items[[1]]$possibleItemAnswers[[1]])
 
 css <- c("#bgred {background-color: #E6B0AA;}",
 		 "#bgblue {background-color: #0000FF;}",

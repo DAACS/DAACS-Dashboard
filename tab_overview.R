@@ -1,20 +1,21 @@
-output$overviewTab <- renderUI({mainPanel(width = 12,
-	# {if(USER$Role == 'ROLE_ADMIN') {
-	# 	sidebarSearchForm(textId = "student",
-	# 					  buttonId = "searchButton",
-	# 					  label = "Search...")
-	# }},
-	# h3(textOutput('name')),
-	# h6(htmlOutput('daacsLink')),
-	fluidRow(
-	  column(gaugeOutput('srlResult.gauge', height = '150px'), width = 3),
-	  column(gaugeOutput('mathResult.gauge', height = '150px'), width = 3),
-	  column(gaugeOutput('readingResult.gauge', height = '150px'), width = 3),
-	  column(gaugeOutput('writingResult.gauge', height = '150px'), width = 3)
-	),
-	box(title = 'Challenges', width = 12, tableOutput('challenges')),
-	box(title = 'Strengths', width = 12, tableOutput('strengths'))
-)})
+output$overviewTab <- renderUI({
+	results <- getResults()
+	if(nrow(results) > 0) {
+		mainPanel(width = 12,
+		fluidRow(
+		  column(gaugeOutput('srlResult.gauge', height = '150px'), width = 3),
+		  column(gaugeOutput('mathResult.gauge', height = '150px'), width = 3),
+		  column(gaugeOutput('readingResult.gauge', height = '150px'), width = 3),
+		  column(gaugeOutput('writingResult.gauge', height = '150px'), width = 3)
+		),
+		box(title = 'Challenges', width = 12, tableOutput('challenges')),
+		box(title = 'Strengths', width = 12, tableOutput('strengths'))
+		)
+	} else {
+		mainPanel(width = 12,
+				  strong("No results found."))
+	}
+	})
 
 output$srlResult.gauge <- renderGauge({
 	results <- getResults()

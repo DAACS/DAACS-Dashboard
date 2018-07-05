@@ -1,6 +1,7 @@
 output$readTab <- renderUI({
 	results <- getResults()
-	read <- results[results$assessmentCategory == 'READING',]
+	read <- results[results$assessmentCategory == 'READING' &
+					results$status == 'GRADED',]
 
 	if(nrow(read) == 0) {
 		return(mainPanel(p("No reading assessments have been completed.")))
@@ -22,7 +23,8 @@ output$readTab <- renderUI({
 
 output$readTakenDate <- renderUI({
 	results <- getResults()
-	read <- results[results$assessmentCategory == 'READING',]
+	read <- results[results$assessmentCategory == 'READING' &
+					results$status == 'GRADED',]
 	read <- read[order(read$takenDate, decreasing = TRUE),]
 	completions <- seq_len(nrow(read))
 	names(completions) <- format(read$takenDate, format = '%B %d, %Y, %H:%M')
@@ -31,7 +33,8 @@ output$readTakenDate <- renderUI({
 
 output$readDomain <- renderUI({
 	results <- getResults()
-	read <- results[results$assessmentCategory == 'READING',]
+	read <- results[results$assessmentCategory == 'READING' &
+					results$status == 'GRADED',]
 	read <- read[order(read$takenDate, decreasing = TRUE),]
 	read.result <- read[as.integer(input$readTakenDate), ]
 
@@ -46,7 +49,8 @@ output$readDomain <- renderUI({
 output$readPassages <- renderUI({
 	req(input$readTakenDate)
 	results <- getResults()
-	read <- results[results$assessmentCategory == 'READING',]
+	read <- results[results$assessmentCategory == 'READING' &
+					results$status == 'GRADED',]
 	read <- read[order(read$takenDate, decreasing = TRUE),]
 	read.result <- read[as.integer(input$readTakenDate), ]
 	nPassages <- nrow(read.result$itemGroups[[1]])
@@ -58,7 +62,8 @@ output$readPassages <- renderUI({
 output$readPassage <- renderText({
 	req(input$readPassage)
 	results <- getResults()
-	read <- results[results$assessmentCategory == 'READING',]
+	read <- results[results$assessmentCategory == 'READING' &
+					results$status == 'GRADED',]
 	read <- read[order(read$takenDate, decreasing = TRUE),]
 	read.result <- read[as.integer(input$readTakenDate), ]
 	passage <- read.result$itemGroups[[1]]$items[[as.integer(input$readPassage)]]$itemContent$question[1,2]
@@ -71,7 +76,8 @@ output$readPlot <- renderPlot({
 	req(input$readDomain)
 
 	results <- getResults()
-	read <- results[results$assessmentCategory == 'READING',]
+	read <- results[results$assessmentCategory == 'READING' &
+					results$status == 'GRADED',]
 	read <- read[order(read$takenDate, decreasing = TRUE),]
 	read.result <- read[as.integer(input$readTakenDate), ]
 

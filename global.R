@@ -9,11 +9,11 @@ library(readxl)
 library(pander)
 library(stringr)
 library(DT)
-# devtools::install_github("nik01010/dashboardthemes")
-library(dashboardthemes)
-# devtools::install_github("ThomasSiegmund/shinyTypeahead")
-library(shinyTypeahead)
+library(dashboardthemes) # devtools::install_github("nik01010/dashboardthemes")
+library(shinyTypeahead)  # devtools::install_github("ThomasSiegmund/shinyTypeahead")
+source('calendarHeat.R')
 
+# source('config-ec.R')
 source('config.R')
 
 if(LOCAL_DB & file.exists(local.db)) {
@@ -24,6 +24,7 @@ if(LOCAL_DB & file.exists(local.db)) {
 				  mongo.host, ':', mongo.port, '/', mongo.db)
 	m.users <- mongo(url = URI, collection = 'users')
 	m.user_assessments <- mongo(url = URI, collection = 'user_assessments')
+	m.events <- mongo(url = URI, collection = 'event_containers')
 }
 
 guide <- as.data.frame(readxl::read_excel('guide.xlsx'))
@@ -40,7 +41,12 @@ getUser <- function(username) {
 	if(LOCAL_DB) {
 		results <- users[users$username == username,]
 	} else {
-		results <- m.users$find(paste0('{"username": "', username, '"}'))
+		fields <- c('_id', 'username', 'roles', 'createdDate', 'version',
+				    'reportedCompletionToCanvas', 'canvasSisId','secondaryId', 'password')
+		f <- paste0("{", paste0('"', fields, '":',
+								1:length(fields), collapse = ', '), "}")
+		results <- m.users$find(paste0('{"username": "', username, '"}'),
+								field = f)
 	}
 	return(results)
 }

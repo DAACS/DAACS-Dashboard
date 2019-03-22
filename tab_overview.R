@@ -1,21 +1,22 @@
 output$overviewTab <- renderUI({
 	results <- getResults()
-	if(nrow(results) > 0) {
-		mainPanel(width = 12,
+	if(nrow(results) == 0) {
+		return(mainPanel(p("No DAACS results found.")))
+	}
+
+	fluidRow(column(width = 12,
 		fluidRow(
 		  column(gaugeOutput('srlResult.gauge', height = '150px'), width = 3),
 		  column(gaugeOutput('mathResult.gauge', height = '150px'), width = 3),
 		  column(gaugeOutput('readingResult.gauge', height = '150px'), width = 3),
 		  column(gaugeOutput('writingResult.gauge', height = '150px'), width = 3)
 		),
+		box(width = 12, plotOutput('userCalendar')),
 		box(title = 'Challenges', width = 12, tableOutput('challenges')),
 		box(title = 'Strengths', width = 12, tableOutput('strengths'))
-		)
-	} else {
-		mainPanel(width = 12,
-				  strong("No results found."))
-	}
-	})
+	)
+	)
+})
 
 output$srlResult.gauge <- renderGauge({
 	results <- getResults()
@@ -182,4 +183,15 @@ output$daacsLink <- renderText({
 	userId <- getResults()[1,]$userId
 	link <- paste0(daacs.base.url, '/dashboard?userId=', userId)
 	return(paste0("<a href='", link, "' target='daacs'>Click here to view results in DAACS</a>"))
+})
+
+output$userCalendar <- renderPlot({
+	user.events <- getUserEvents()
+	events <- user.events$userEvents[[1]]
+	events$timestamp <- as.Date(events$timestamp)
+	dates <- as.data.frame(table(events$timestamp), stringsAsFactors = FALSE)
+	names(dates) <- c('Date', 'Views')
+	dates$Date <- as.Date(dates$Date)
+	calendarHeat(dates$Date, dates$Views,
+				 title = paste0('DAACS Usage'))
 })

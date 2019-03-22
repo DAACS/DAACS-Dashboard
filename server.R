@@ -16,6 +16,21 @@ shinyServer(function(input, output, session) {
 		return(results)
 	})
 
+	getUserEvents <- reactive({
+		userid <- ''
+		if(USER$Role %in% c('ROLE_ADMIN', 'ROLE_ADVISOR')) {
+			user <- getUser(input$userSearch)
+		} else {
+			user <- getUser(USER$Username)
+		}
+		userid <- user[1,]$`_id`
+		event_containers.fields = c('_id', 'userEvents', 'version')
+		f <- paste0("{", paste0('"', event_containers.fields, '":',
+								1:length(event_containers.fields), collapse = ', '), "}")
+		user.events <- m.events$find(paste0('{"_id":{"$oid":"', userid, '"}}'), field = f)
+		return(user.events)
+	})
+
 	output$dashboard.user <- renderUI({
 		if(USER$Logged) {
 			results <- getResults()

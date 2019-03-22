@@ -5,6 +5,13 @@ USER <- reactiveValues(Logged = FALSE,
 					   Username = NA,
 					   Role = '')
 
+# For testing
+# USER <- list(Username = 'jbryer@excelsior.edu',
+# 					   Logged = TRUE,
+# 					   # Role = 'ROLE_ADMIN',
+# 					   Role = '',
+# 					   Unique = format(Sys.time(), '%Y%m%d%H%M%S'))
+
 passwdInput <- function(inputId, label, value) {
 	tagList(
 		tags$label(label),
@@ -14,11 +21,16 @@ passwdInput <- function(inputId, label, value) {
 
 output$uiLogin <- renderUI({
 	if(USER$Logged == FALSE) {
+		div(
+			h5("This is a prototype of the DAACS Advisor Dashboard. Please login using your
+			   username and password from demo.daacs.net."),
+			br(),
 		wellPanel(
 			div(textInput(paste0("username", USER$Unique), "Username: ", value='')),
 			div(passwdInput(paste0("password", USER$Unique), "Password: ", value='')),
 			br(),
 			actionButton("Login", "Login")
+		)
 		)
 	}
 })

@@ -22,8 +22,8 @@ passwdInput <- function(inputId, label, value) {
 output$uiLogin <- renderUI({
 	if(USER$Logged == FALSE) {
 		div(
-			h5("This is a prototype of the DAACS Advisor Dashboard. Please login using your
-			   username and password from demo.daacs.net."),
+			# h5("This is a prototype of the DAACS Advisor Dashboard. Please login using your
+			#    username and password from demo.daacs.net."),
 			br(),
 		wellPanel(
 			div(textInput(paste0("username", USER$Unique), "Username: ", value='')),

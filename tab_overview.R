@@ -11,9 +11,9 @@ output$overviewTab <- renderUI({
 		  column(gaugeOutput('readingResult.gauge', height = '150px'), width = 3),
 		  column(gaugeOutput('writingResult.gauge', height = '150px'), width = 3)
 		),
-		box(width = 12, plotOutput('userCalendar')),
 		box(title = 'Challenges', width = 12, tableOutput('challenges')),
-		box(title = 'Strengths', width = 12, tableOutput('strengths'))
+		box(title = 'Strengths', width = 12, tableOutput('strengths')),
+		box(width = 12, plotOutput('userCalendar'))
 	)
 	)
 })
@@ -24,7 +24,7 @@ output$srlResult.gauge <- renderGauge({
 	srl <- srl[srl$status == 'GRADED',]
 	overall.score <- NA
 	score <- NA
-	if(nrow(srl) > 1) {
+	if(nrow(srl) > 0) {
 		scores <- getStudentResponses(srl, 1)
 		score <- round( 100 * sum(scores$score) / (nrow(scores) * 4) )
 		overall.score <- srl[1,]$overallScore
@@ -52,7 +52,7 @@ output$mathResult.gauge <- renderGauge({
 	math <- results[results$assessmentCategory == 'MATHEMATICS',]
 	math <- math[math$status == 'GRADED',]
 	score <- NA
-	if(nrow(math) > 1) {
+	if(nrow(math) > 0) {
 		scores <- getStudentResponses(math, 1)
 		score <- round( 100 * sum(scores$score) / nrow(scores) )
 		overall.score <- math[1,]$overallScore
@@ -80,7 +80,7 @@ output$readingResult.gauge <- renderGauge({
 	reading <- results[results$assessmentCategory == 'READING',]
 	reading <- reading[reading$status == 'GRADED',]
 	score <- NA
-	if(nrow(reading) > 1) {
+	if(nrow(reading) > 0) {
 		scores <- getStudentResponses(reading, 1)
 		score <- round( 100 * sum(scores$score) / nrow(scores) )
 		overall.score <- reading[1,]$overallScore
@@ -108,7 +108,7 @@ output$writingResult.gauge <- renderGauge({
 	writing <- results[results$assessmentCategory == 'WRITING',]
 	writing <- writing[writing$status == 'GRADED',]
 	score <- NA
-	if(nrow(writing) > 1) {
+	if(nrow(writing) > 0) {
 		scores <- data.frame()
 		domainScores <- writing[1,]$domainScores[[1]]
 		for(i in 1:nrow(domainScores)) {

@@ -15,6 +15,7 @@ source('calendarHeat.R')
 
 # source('config-ec.R')
 source('config.R')
+# source('config-albany.R')
 
 if(LOCAL_DB & file.exists(local.db)) {
 	load(local.db)
@@ -22,12 +23,12 @@ if(LOCAL_DB & file.exists(local.db)) {
 	library(mongolite)
 	URI <- paste0('mongodb://', mongo.user, ':', mongo.pass, '@',
 				  mongo.host, ':', mongo.port, '/', mongo.db)
-	m.users <- mongo(url = URI, collection = 'users')
-	m.user_assessments <- mongo(url = URI, collection = 'user_assessments')
-	m.events <- mongo(url = URI, collection = 'event_containers')
+	m.users <- mongo(url = URI, collection = mongo.collection.users)
+	m.user_assessments <- mongo(url = URI, collection = mongo.collection.assessments)
+	m.events <- mongo(url = URI, collection = mongo.collection.events)
 }
 
-guide <- as.data.frame(readxl::read_excel('guide.xlsx'))
+guide <- as.data.frame(readxl::read_excel('resources/guide.xlsx'))
 writing.rubric <- as.data.frame(readxl::read_excel('resources/writing/rubric.xlsx'))
 
 
@@ -131,20 +132,6 @@ getStudentResponses <- function(srl, studentRow) {
 	}
 	return(studentdf)
 }
-
-# srl[1,]$itemGroups[[1]]
-#
-# anw <- srl[1,]$itemGroups[[1]][1,]$items[[1]]$chosenItemAnswerId
-# srl[1,]$itemGroups[[1]][1,]$items[[1]]$possibleItemAnswers
-#
-# apply(srl[1,]$itemGroups[[1]][1,]$items[[1]], 1, FUN = function(x1) {
-# 	x1$possibleItemAnswers[[1]][x1$chosenItemAnswerId == x1$possibleItemAnswers[[1]]$`_id`,]$score
-# })
-#
-# mapply(function(chosenAnswer, possibleAnswers) {
-# 	print(possibleAnswers)
-# 	# possibleAnswers[possibleAnswers$`_id` == chosenAnswer,]$score
-# }, srl[1,]$itemGroups[[1]]$items[[1]]$chosenItemAnswerId, srl[1,]$itemGroups[[1]]$items[[1]]$possibleItemAnswers[[1]])
 
 css <- c("#bgred {background-color: #E6B0AA;}",
 		 "#bgblue {background-color: #0000FF;}",

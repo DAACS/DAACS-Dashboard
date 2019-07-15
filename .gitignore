@@ -38,3 +38,4 @@ rsconnect/
 
 private/
 config.R
+config-ec.R

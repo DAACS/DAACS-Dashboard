@@ -7,6 +7,7 @@ output$adminTab <- renderUI({
 
 output$userDT <- DT::renderDataTable({
 	users <- getUsers()
-	return(users[,c('username', 'firstName', 'lastName', 'createdDate', 'hasDataUsageConsent')])
+	# return(users[,c('username', 'firstName', 'lastName', 'createdDate', 'hasDataUsageConsent')])
+	return(users[,c('username', 'firstName', 'lastName', 'createdDate')])
 }, server = TRUE, selection='single', rownames=FALSE)
 

@@ -161,8 +161,8 @@ output$challenges <- renderTable({
 
 output$strengths <- renderTable({
 	results <- getResults()
-	srl <- results[results$assessmentCategory == 'COLLEGE_SKILLS',]
-	srl <- srl[srl$status == 'GRADED',]
+	srl <- results[results$assessmentCategory == 'COLLEGE_SKILLS',,drop=FALSE]
+	srl <- srl[srl$status == 'GRADED',,drop=FALSE]
 	srl.items <- getStudentResponses(srl, nrow(srl))
 
 	srl.domains <- describeBy(srl.items$score, group = srl.items$domain, mat = TRUE, skew = FALSE)

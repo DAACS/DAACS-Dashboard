@@ -10,7 +10,7 @@ shinyServer(function(input, output, session) {
 		}
 		if(nrow(results) > 0) {
 			results$takenDate <- as.POSIXct(results$takenDate, origin = '1970-01-01')
-			results$completionDate <- as.POSIXct(results$completionDate, origin = '1970-01-01')
+			# results$completionDate <- as.POSIXct(results$completionDate, origin = '1970-01-01')
 			results <- results[order(results$takenDate, decreasing = TRUE),]
 		}
 		return(results)

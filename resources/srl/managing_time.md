@@ -6,6 +6,6 @@ These time management strategies are quite useful, which you could recommend to 
 * Estimate the time it takes to complete assignments and then check to see how accurate you were.
 
 Want more information? Check out one of these links:
-* Learn why managing time is important. http://srl.daacs.net/managing_time.html
-* Read real-life scenarios about the power of managing time. http://srl.daacs.net/managing_time_profiles.html
-* Recommendations for improving your time management strategies. http://srl.daacs.net/strategies_recommendations.html
+* Learn why managing time is important. https://srl.daacs.net/learning-strategies/time-management/why-is-time-management-important/
+* Read real-life scenarios about the power of managing time. https://srl.daacs.net/learning-strategies/time-management/time-management-profile/
+* Recommendations for improving your time management strategies. https://srl.daacs.net/learning-strategies/time-management/improve-your-time-management/

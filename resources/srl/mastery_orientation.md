@@ -6,6 +6,6 @@ Offer these suggestions to your students to help them enhance their mastery orie
 * View mistakes and errors as opportunities to improve.
 
 Want more information? Check out these links:
-* Learn why mastery orientation is important. http://srl.daacs.net/mastery_orientation_influence.html
-* Read real-life scenarios about the effects of mastery orientation. http://srl.daacs.net/mastery_orientation_profile.html
-* Recommendations on how to improve your mastery orientation. http://srl.daacs.net/mastery_orientation_recommendations.html
+* Learn why mastery orientation is important. https://srl.daacs.net/motivation/mastery-orientation/why-is-mastery-orientation-important/
+* Read real-life scenarios about the effects of mastery orientation. https://srl.daacs.net/motivation/mastery-orientation/mastery-orientation-profile/
+* Recommendations on how to improve your mastery orientation. https://srl.daacs.net/motivation/mastery-orientation/improve-your-mastery-orientation/

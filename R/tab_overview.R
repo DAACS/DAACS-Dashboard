@@ -22,8 +22,8 @@ output$overviewTab <- renderUI({
 					valueBoxOutput('writingResult', height = '150px')
 				)
 			},
-		box(title = 'Challenges', width = 12, tableOutput('challenges')),
-		box(title = 'Strengths', width = 12, tableOutput('strengths')),
+		box(title = 'Challenges', width = 12, dataTableOutput('challenges')),
+		box(title = 'Strengths', width = 12, dataTableOutput('strengths')),
 		box(width = 12, plotOutput('userCalendar'))
 	)
 	)
@@ -156,7 +156,7 @@ output$writingResult <- renderValueBox({
 							 color = scoreColor(score))
 })
 
-output$challenges <- renderTable({
+output$challenges <- DT::renderDataTable({
 	results <- getResults()
 	srl <- results[results$assessmentCategory == 'COLLEGE_SKILLS',]
 	srl <- srl[srl$status == 'GRADED',]
@@ -168,9 +168,15 @@ output$challenges <- renderTable({
 	srl.domains <- srl.domains[order(srl.domains$mean),]
 
 	guide[guide$Domain %in% srl.domains[1:2,]$group1, c('Challenge','Strategies','Resources')]
-})
+},
+	escape=FALSE,
+	selection = list(mode = 'none'),
+	rownames = FALSE,
+	filter = 'none',
+	options = list(searching = FALSE, paging = FALSE),
+	autoHideNavigation = TRUE)
 
-output$strengths <- renderTable({
+output$strengths <- DT::renderDataTable({
 	results <- getResults()
 	srl <- results[results$assessmentCategory == 'COLLEGE_SKILLS',,drop=FALSE]
 	srl <- srl[srl$status == 'GRADED',,drop=FALSE]
@@ -183,7 +189,14 @@ output$strengths <- renderTable({
 
 	guide[guide$Domain %in% srl.domains[nrow(srl.domains):(nrow(srl.domains)-1),]$group1,
 		  c('Strength','Strategies','Resources')]
-})
+},
+	escape=FALSE,
+	selection = list(mode = 'none'),
+	rownames = FALSE,
+	filter = 'none',
+	options = list(searching = FALSE, paging = FALSE),
+	autoHideNavigation = TRUE
+)
 
 output$name <- renderText({
 	results <- getResults()

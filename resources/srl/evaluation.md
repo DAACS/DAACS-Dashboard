@@ -6,6 +6,6 @@ Here are a few strategies to suggest to your students, to help them become skill
 * Keep a list of learning strategies that seem to work best for you.
 
 Want more information? Click on one of the links below:
-* Learn why self-evaluation is important. http://srl.daacs.net/metacognition_evaluation_importance.html
-* See how self-evaluation can influence the way you think, feel, and act http://srl.daacs.net/metacognition_profile.html
-* Recommendations for improving your self-evaluation skills. http://srl.daacs.net/metacognition_recommendations.html
+* Learn why self-evaluation is important. https://srl.daacs.net/metacognition/evaluate/why-is-evaluating-important/
+* See how self-evaluation can influence the way you think, feel, and act https://srl.daacs.net/metacognition/evaluate/evaluating-profile/
+* Recommendations for improving your self-evaluation skills. https://srl.daacs.net/metacognition/evaluate/how-to-improve-your-evaluating/

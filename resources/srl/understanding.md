@@ -6,6 +6,6 @@ Here are a couple of learning strategies you could recommend your students to tr
 * Elaborate on information by using concept maps or making summaries.
 
 Looking for more strategies to help your students? Click on the links below:
-* Learn why strategies for understanding are important. http://srl.daacs.net/understanding.html
-* Read real-life scenarios about the power of strategies for understanding. http://srl.daacs.net/understanding_profiles.html
-* Recommendations for improving your strategies for understanding. http://srl.daacs.net/strategies_recommendations.html
+* Learn why strategies for understanding are important. https://srl.daacs.net/learning-strategies/learning-tactics/why-are-learning-tactics-important/
+* Read real-life scenarios about the power of strategies for understanding. https://srl.daacs.net/learning-strategies/learning-tactics/learning-tactics-profile/
+* Recommendations for improving your strategies for understanding. https://srl.daacs.net/learning-strategies/learning-tactics/improve-your-learning-tactics/

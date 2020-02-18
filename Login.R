@@ -22,8 +22,7 @@ passwdInput <- function(inputId, label, value) {
 output$uiLogin <- renderUI({
 	if(USER$Logged == FALSE) {
 		div(
-			# h5("This is a prototype of the DAACS Advisor Dashboard. Please login using your
-			#    username and password from demo.daacs.net."),
+			h5(login.message),
 			br(),
 		wellPanel(
 			div(textInput(paste0("username", USER$Unique), "Username: ", value='')),
@@ -57,8 +56,7 @@ output$pass <- renderText({
 				try({
 					if(nrow(test.user) == 0) {
 						return(paste0(Username, ' not found.'))
-					} else if(Password == test.user[1,]$password)
-					{
+					} else if(Password == test.user[1,]$password) {
 						USER$Logged <- TRUE
 						USER$Username <- Username
 						USER$Role <- as.character(test.user[1,]$roles)

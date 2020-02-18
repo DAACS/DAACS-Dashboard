@@ -14,6 +14,7 @@ dashboardPage(#skin = 'purple',
 		uiOutput('dashboard.user'),
 		uiOutput('dashboard.search'),
 		sidebarMenuOutput('dashboard.sidebar')
+		# uiOutput('dashboard.download')
 	),
 	dashboardBody(
 		shinyDashboardThemes(theme = "onenote"),

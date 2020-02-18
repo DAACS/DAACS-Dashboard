@@ -1,16 +1,27 @@
 output$overviewTab <- renderUI({
+	input$Login
 	results <- getResults()
 	if(nrow(results) == 0) {
 		return(mainPanel(p("No DAACS results found.")))
 	}
 
 	fluidRow(column(width = 12,
-		fluidRow(
-		  column(gaugeOutput('srlResult.gauge', height = '150px'), width = 3),
-		  column(gaugeOutput('mathResult.gauge', height = '150px'), width = 3),
-		  column(gaugeOutput('readingResult.gauge', height = '150px'), width = 3),
-		  column(gaugeOutput('writingResult.gauge', height = '150px'), width = 3)
-		),
+			if(scores.raw) {
+#TODO: This doesn't currently work!!!
+				fluidRow(
+					column(gaugeOutput('srlResult.guage', height = '150px'), width = 3),
+					column(gaugeOutput('mathResult.guage', height = '150px'), width = 3),
+					column(gaugeOutput('readingResult.guage', height = '150px'), width = 3),
+					column(gaugeOutput('writingResult.guage', height = '150px'), width = 3)
+				)
+			} else {
+				fluidRow(
+					valueBoxOutput('srlResult', height = '150px'),
+					valueBoxOutput('mathResult', height = '150px'),
+					valueBoxOutput('readingResult', height = '150px'),
+					valueBoxOutput('writingResult', height = '150px')
+				)
+			},
 		box(title = 'Challenges', width = 12, tableOutput('challenges')),
 		box(title = 'Strengths', width = 12, tableOutput('strengths')),
 		box(width = 12, plotOutput('userCalendar'))
@@ -40,7 +51,7 @@ output$srlResult <- renderValueBox({
 	if(nrow(srl) > 1) {
 		score <- srl[1,]$overallScore
 	}
-	valueBox(value = "SRL",
+	shinydashboard::valueBox(value = "SRL",
 			 subtitle = scoreLabel(score),
 			 icon = icon("compass"),
 			 width = 3,
@@ -186,12 +197,12 @@ output$daacsLink <- renderText({
 })
 
 output$userCalendar <- renderPlot({
-	user.events <- getUserEvents()
-	events <- user.events$userEvents[[1]]
-	events$timestamp <- as.Date(events$timestamp)
-	dates <- as.data.frame(table(events$timestamp), stringsAsFactors = FALSE)
-	names(dates) <- c('Date', 'Views')
-	dates$Date <- as.Date(dates$Date)
-	calendarHeat(dates$Date, dates$Views,
-				 title = paste0('DAACS Usage'))
+	# user.events <- getUserEvents()
+	# events <- user.events$userEvents[[1]]
+	# events$timestamp <- as.Date(events$timestamp)
+	# dates <- as.data.frame(table(events$timestamp), stringsAsFactors = FALSE)
+	# names(dates) <- c('Date', 'Views')
+	# dates$Date <- as.Date(dates$Date)
+	# calendarHeat(dates$Date, dates$Views,
+	# 			 title = paste0('DAACS Usage'))
 })

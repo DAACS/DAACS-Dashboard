@@ -2,12 +2,13 @@ shinyServer(function(input, output, session) {
 	source("Login.R",  local = TRUE)
 
 	getResults <- reactive({
-		results <- data.frame()
-		if(USER$Role %in% c('ROLE_ADMIN', 'ROLE_ADVISOR')) {
-			results <- getUserResults(input$userSearch)
-		} else {
-			results <- getUserResults(USER$Username) # TODO: use search box if admin
-		}
+		results <- getUserResults(input$userSearch)
+		# results <- data.frame()
+		# if(USER$Role %in% c('ROLE_ADMIN', 'ROLE_ADVISOR')) {
+		# 	results <- getUserResults(input$userSearch)
+		# } else {
+		# 	results <- getUserResults(USER$Username) # TODO: use search box if admin
+		# }
 		if(nrow(results) > 0) {
 			results$takenDate <- as.POSIXct(results$takenDate, origin = '1970-01-01')
 			# results$completionDate <- as.POSIXct(results$completionDate, origin = '1970-01-01')
@@ -45,11 +46,22 @@ shinyServer(function(input, output, session) {
 		}
 	})
 
+	output$dashboard.download <- renderUI({
+		if(USER$Logged) {
+			downloadButton("downloadPDF", "Download PDF Report")
+		} else {
+			return()
+		}
+	})
+
 	output$dashboard.search <- renderUI({
+		searchbox <- NULL
 		if(USER$Role %in% c('ROLE_ADMIN', 'ROLE_ADVISOR')) {
+print('Select for ADMIN...')
 			# sidebarSearchForm(textId = "searchText", buttonId = "searchButton",
 			#  				  label = "Search...")
 			users <- getUsers()
+print(head(users))
 			# selectizeInput('searchText', label = 'Search',
 			# 			   choices = users$username,
 			# 			   multiple = FALSE)
@@ -59,9 +71,25 @@ shinyServer(function(input, output, session) {
 				users <- getUsers()
 				value <- users[selectedRow,]$username
 			}
-			typeaheadInput('userSearch', 'Student search...', value = value,
-						   choices = users$username)
+			# choices <- paste0(users$firstName, ' ', users$lastName, ' (', users$username, ')')
+			# typeaheadInput('userSearch', 'Student search...', value = value,
+			# 			   #choices = users$username
+			# 			   choices = choices
+			# 			   )
+			searchbox <- autocomplete_input(id = 'userSearch',
+							   label = 'Student search...',
+							   value = value,
+							   options = structure(users$username,
+							   		names = paste0(users$firstName, ' ', users$lastName)))
+		} else if(USER$Logged) {
+			value <- USER$Username
+			searchbox <- autocomplete_input(id = 'userSearch',
+							   label = 'Student search...',
+							   value = value,
+							   options = structure(value))
+
 		}
+		return(searchbox)
 	})
 
 	output$dashboard.sidebar <- renderMenu({
@@ -91,6 +119,7 @@ shinyServer(function(input, output, session) {
 			}
 
 			panel <- do.call(sidebarMenu, args = panels)
+			# updateTabItems(session, "tabs", 'overview')
 		} else {
 			panel <- sidebarMenu(id = 'tabs',
 				 menuItem('Login', tabName = 'login', selected = TRUE)
@@ -101,14 +130,15 @@ shinyServer(function(input, output, session) {
 
 	output$dashboard.body <- renderUI({
 		if(USER$Logged) {
-			panel <- tabItems(
-				tabItem("overview", uiOutput('overviewTab')),
-				tabItem('srl', uiOutput('srlTab')),
-				tabItem('mathematics', uiOutput('mathTab')),
-				tabItem('reading', uiOutput('readTab')),
-				tabItem('writing', uiOutput('writingTab')),
-				tabItem('admin', uiOutput('adminTab'))
+			panel <- list(
+				tabItem(tabName = 'overview', uiOutput('overviewTab')),
+				tabItem(tabName = 'srl', uiOutput('srlTab')),
+				tabItem(tabName = 'mathematics', uiOutput('mathTab')),
+				tabItem(tabName = 'reading', uiOutput('readTab')),
+				tabItem(tabName = 'writing', uiOutput('writingTab')),
+				tabItem(tabName = 'admin', uiOutput('adminTab'))
 			)
+			panel <- do.call(tabItems, args = panel)
 		} else {
 			panel <- tabItem("login",
 							 fluidRow(
@@ -122,6 +152,36 @@ shinyServer(function(input, output, session) {
 		}
 		return(panel)
 	})
+
+	##### Download PDF report ######################################################
+	output$downloadPDF <- downloadHandler(
+		filename = function() {
+			if(USER$Role %in% c('ROLE_ADMIN', 'ROLE_ADVISOR')) {
+				user <- getUser(input$userSearch)
+			} else {
+				user <- getUser(USER$Username)
+			}
+			userid <- user[1,]$`_id`
+			paste0(userid, '.pdf')
+		},
+
+		content = function(file) {
+			if(USER$Role %in% c('ROLE_ADMIN', 'ROLE_ADVISOR')) {
+				user <- getUser(input$userSearch)
+			} else {
+				user <- getUser(USER$Username)
+			}
+			userid <- user[1,]$`_id`
+			out <- generateDAACSReport(userid)
+			# out <- rmarkdown::render("status_report.Rmd", quiet=!DEBUG, envir = environment())
+			file.rename(out, file)
+		},
+
+		contentType = 'application/pdf'
+	)
+
+	##### Institution Tab ######################################################
+	source('tab_institution.R', local = TRUE)
 
 	##### Overview Tab #########################################################
 	source('tab_overview.R', local = TRUE)

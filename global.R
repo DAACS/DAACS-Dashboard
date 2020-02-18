@@ -10,12 +10,17 @@ library(pander)
 library(stringr)
 library(DT)
 library(dashboardthemes) # devtools::install_github("nik01010/dashboardthemes")
-library(shinyTypeahead)  # devtools::install_github("ThomasSiegmund/shinyTypeahead")
+# library(shinyTypeahead)  # devtools::install_github("ThomasSiegmund/shinyTypeahead")
+library(dqshiny)
+library(tidyverse)
+library(tools)
 source('calendarHeat.R')
 
-# source('config-ec.R')
-source('config.R')
-# source('config-albany.R')
+# source('config-ec.R')     # Excelsior College
+source('config.R')          # Demo Site
+# source('config-albany.R') # UAlbany
+
+source('LOCAL_USERS.R')
 
 if(LOCAL_DB & file.exists(local.db)) {
 	load(local.db)
@@ -39,6 +44,12 @@ perc.rank <- function(x, score) {
 }
 
 getUser <- function(username) {
+	if(!is.null(LOCAL_USERS)) {
+		results <- LOCAL_USERS[LOCAL_USERS$username == username,]
+		if(nrow(results) == 1) {
+			return(results)
+		}
+	}
 	if(LOCAL_DB) {
 		results <- users[users$username == username,]
 	} else {
@@ -96,15 +107,16 @@ scoreLabel <- function(score) {
 	}
 }
 
+#' Color returned for valueBox.
 scoreColor <- function(score) {
 	if(is.na(score)) {
 		return('maroon')
 	} else if(score == 'LOW') {
-		return('yellow')
+		return('light-blue')
 	} else if(score == 'MEDIUM') {
 		return('blue')
 	} else if(score == 'HIGH') {
-		return('green')
+		return('purple')
 	} else {
 		return('maroon')
 	}
@@ -133,10 +145,15 @@ getStudentResponses <- function(srl, studentRow) {
 	return(studentdf)
 }
 
-css <- c("#bgred {background-color: #E6B0AA;}",
+# css <- c("#bgred {background-color: #E6B0AA;}",
+# 		 "#bgblue {background-color: #0000FF;}",
+# 		 "#bgyellow {background-color: #ffff99;}",
+# 		 "#bggreen {background-color: #82E0AA;}")
+
+css <- c("#bgred {background-color: #1f78b4;}",
 		 "#bgblue {background-color: #0000FF;}",
-		 "#bgyellow {background-color: #ffff99;}",
-		 "#bggreen {background-color: #82E0AA;}")
+		 "#bgyellow {background-color: #b2df8a;}",
+		 "#bggreen {background-color: #33a02c;}")
 
 colortable <- function(htmltab, css, style="table-condensed table-bordered"){
 	tmp <- str_split(htmltab, "\n")[[1]]
@@ -162,3 +179,60 @@ colortable <- function(htmltab, css, style="table-condensed table-bordered"){
 	)
 }
 
+generateDAACSReport <- function(username,
+								report_dir = 'student_report',
+								out_dir = paste0(report_dir, '/generated')) {
+	start.globalevn.vars <- ls(envir = globalenv())
+
+	results <- getUserResults(username)
+
+	if(nrow(results) == 0) {
+		warning(paste0('No results found for ', username))
+		return(NA)
+	}
+
+	results$completionDate <- as.Date(results$completionDate, origin = '1970-01-01')
+	results <- results %>%
+		filter(status == 'GRADED') %>%
+		select(username, firstName, lastName, completionDate,
+			   assessmentCategory, assessmentType, overallScore, domainScores) %>%
+		arrange(desc(completionDate)) %>%
+		filter(!duplicated(.[["assessmentCategory"]]))
+
+	if(nrow(results) == 0) {
+		warning(paste0('No results found for ', username))
+		return(NA)
+	}
+
+	wd <- setwd(report_dir)
+	tryCatch({
+		assign('results', results, envir = globalenv())
+		# sink("DAACS_report_log.txt", append = TRUE)
+		cat(paste0('Generating report for ', username))
+		utils::Sweave('sample.Rnw')
+		utils::Sweave('sidebar.Rnw')
+		tools::texi2pdf('sample.tex', quiet=TRUE, clean=TRUE)
+		# tinytex::pdflatex('sample.tex') # possible alternative
+		# sink()
+	}, finally = {
+		setwd(wd)
+		end.globalevn.vars <- ls(envir = globalenv())
+		rm(list = end.globalevn.vars[!end.globalevn.vars %in% start.globalevn.vars],
+		   envir = globalenv())
+	})
+
+	report_file <- paste0(out_dir, '/', strsplit(username, '@')[[1]][1],
+						  '-', Sys.Date(), '.pdf')
+	file.copy(from = paste0(report_dir, '/sample.pdf'),
+			  to = report_file, overwrite = TRUE)
+
+	tryCatch({ # Cleanup
+		files <- c('sample.tex', 'sidebar.tex', 'sample.pdf',
+				   'sample-concordance.tex')
+		for(i in files) {
+			file.remove(paste0(report_dir, '/', i))
+		}
+	})
+
+	return(report_file)
+}

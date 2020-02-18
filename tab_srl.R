@@ -113,7 +113,7 @@ output$srlPlot <- renderPlot({
 			xlab('') + ylab('Mean Response') +
 			ylim(c(0, 4)) +
 			scale_color_manual('Student Score',
-							   values = c('red', 'orange', 'green'),
+							   values = colors,
 							   limits = c('Developing', 'Emerging', 'Mastering'),
 							   na.value = 'grey') +
 			theme_minimal() +

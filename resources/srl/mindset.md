@@ -9,6 +9,6 @@ Suggest one of these strategies to your students to improve their mindset:
 * Embrace challenges, and know when to ask for help
 
 Want more resources? Check out one of these links:
-* Learn why mindset is important. http://srl.daacs.net/mindset_influence.html
-* See how mindset can influence the way you think, feel, and act http://srl.daacs.net/mindset_profile.html
-* Recommendations for how to improve your mindset. http://srl.daacs.net/mindset_recommendations.html
+* Learn why mindset is important. https://srl.daacs.net/motivation/mindset/why-is-mindset-important/
+* See how mindset can influence the way you think, feel, and act https://srl.daacs.net/motivation/mindset/mindset-profile/
+* Recommendations for how to improve your mindset. https://srl.daacs.net/motivation/mindset/improve-your-mindset/

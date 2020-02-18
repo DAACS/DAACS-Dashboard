@@ -6,6 +6,6 @@ Here are some strategies to encourage your students to seek help when they need:
 * Advocate for yourself -- be persistent if your first attempt to get help is not successful.
 
 Want more information? Click on one of these links:
-* Learn why help seeking is important. http://srl.daacs.net/help_seeking.html
-* Read real-life scenarios about the power of help seeking. http://srl.daacs.net/help_seeking_profiles.html
-* Recommendations for help seeking strategies. http://srl.daacs.net/strategies_recommendations.html
+* Learn why help seeking is important. https://srl.daacs.net/learning-strategies/help-seeking/why-is-help-seeking-important/
+* Read real-life scenarios about the power of help seeking. https://srl.daacs.net/learning-strategies/help-seeking/help-seeking-profile/
+* Recommendations for help seeking strategies. https://srl.daacs.net/learning-strategies/help-seeking/improve-your-help-seeking/

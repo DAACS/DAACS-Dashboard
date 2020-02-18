@@ -4,10 +4,10 @@ When learners experience high anxiety, they will often feel “on edge” and av
 
 These strategies could be used to cope with anxiety:
 * Use relaxation techniques to reduce uncomfortable feelings and to increase your focus, as needed.
-* Say positive things to yourself about your likelihood of success.
+* Practice positive self-talk and challenge negative thoughts.
 * Create schedules and plan study times so you don't get anxious about being able to do what needs to be done.
 
 Want more resources? Check out one of these links:
-* Learn why managing test anxiety is important. http://srl.daacs.net/anxiety_importance.html
-* Read real-life scenarios about the effects of test anxiety. http://srl.daacs.net/anxiety_profile.html
-* Recommendations for managing test anxiety. http://srl.daacs.net/anxiety_recommendations.html
+* Learn why managing test anxiety is important. https://srl.daacs.net/motivation/anxiety-levels/why-are-anxiety-levels-important/
+* Read real-life scenarios about the effects of test anxiety. https://srl.daacs.net/motivation/anxiety-levels/anxiety-levels-profile/
+* Recommendations for managing test anxiety. https://srl.daacs.net/motivation/anxiety-levels/reduce-anxiety-levels/

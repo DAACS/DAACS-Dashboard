@@ -6,6 +6,6 @@ The following are three strategies you could recommend your students to help the
 * Identify 2-3 comfortable and quiet study places so you have multiple options.
 
 Want more information? Click on the links below:
-* Learn why managing environments is important. http://srl.daacs.net/managing_environment.html
-* Read real-life scenarios about the power of managing environments. http://srl.daacs.net/managing_environments_profiles.html
-* Recommendations for improving your environment management strategies. http://srl.daacs.net/strategies_recommendations.html
+* Learn why managing environments is important. https://srl.daacs.net/learning-strategies/environment-management/why-is-environment-management-important/
+* Read real-life scenarios about the power of managing environments. https://srl.daacs.net/learning-strategies/environment-management/environment-management-profile/
+* Recommendations for improving your environment management strategies. https://srl.daacs.net/learning-strategies/environment-management/improve-your-environment-management/

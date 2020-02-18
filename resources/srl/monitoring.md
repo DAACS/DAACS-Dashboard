@@ -5,6 +5,6 @@ Offer these strategies to your students to help them improve on their monitoring
 * Make two lists: One list of tasks that you do well, and another of tasks with which you struggle. Click on More Info for recommendations for dealing with the tasks on the second list.
 
 Want more information? Click on one of the links below:
-* Learn why self-monitoring is important. http://srl.daacs.net/metacognition_monitoring_importance.html
-* See how self-monitoring can influence the way you think, feel, and act. http://srl.daacs.net/metacognition_profile.html
-* Recommendations for improving your self-monitoring skills. http://srl.daacs.net/metacognition_recommendations.html
+* Learn why self-monitoring is important. https://srl.daacs.net/metacognition/monitor/why-is-monitoring-important/
+* See how self-monitoring can influence the way you think, feel, and act. https://srl.daacs.net/metacognition/monitor/monitoring-profile/
+* Recommendations for improving your self-monitoring skills. https://srl.daacs.net/metacognition/monitor/how-to-improve-your-monitoring/

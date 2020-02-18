@@ -6,6 +6,6 @@ Here are a couple of strategies you could suggest to your students to improve th
 * Remind yourself of all of the things that you do well in school.
 
 Want more information? Check out these links:
-* Learn why self-efficacy is important. http://srl.daacs.net/self-efficacy_importance.html
-* Read real-life scenarios about the power of self-efficacy. http://srl.daacs.net/self-efficacy_profile.html
-* Recommendations for how to improve your self-efficacy. http://srl.daacs.net/self-efficacy_recommendations.html
+* Learn why self-efficacy is important. https://srl.daacs.net/motivation/self-efficacy/why-is-self-efficacy-important/
+* Read real-life scenarios about the power of self-efficacy. https://srl.daacs.net/motivation/self-efficacy/self-efficacy-profile/
+* Recommendations for how to improve your self-efficacy. https://srl.daacs.net/motivation/self-efficacy/improve-your-self-efficacy/

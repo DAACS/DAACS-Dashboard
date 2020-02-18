@@ -6,6 +6,6 @@ Offer these suggestions to students to help them become a more effective planner
 * Ask your teachers questions about tasks and new material.
 
 Want more information? Check out one of the links below:
-* Learn why planning is important. http://srl.daacs.net/metacognition_planning_importance.html
-* See how planning can influence the way you think, feel, and act. http://srl.daacs.net/metacognition_profile.html
-* Recommendations for improving your planning skills. http://srl.daacs.net/metacognition_recommendations.html
+* Learn why planning is important. https://srl.daacs.net/metacognition/plan/why-is-planning-important/
+* See how planning can influence the way you think, feel, and act. https://srl.daacs.net/metacognition/plan/planning-profile/
+* Recommendations for improving your planning skills. https://srl.daacs.net/metacognition/plan/how-to-improve-your-planning/

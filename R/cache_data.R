@@ -1,6 +1,6 @@
 # This R script will extract the data from DAACS used by the dachboard.
 
-# source('config.R')
+source('config.R')
 
 URI <- paste0('mongodb://', mongo.user, ':', mongo.pass, '@',
 			  mongo.host, ':', mongo.port, '/', mongo.db)

@@ -39,3 +39,5 @@ rsconnect/
 private/
 config.R
 config-ec.R
+DAACS_Setup.sh
+DO_Setup.sh

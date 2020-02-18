@@ -14,13 +14,13 @@ library(dashboardthemes) # devtools::install_github("nik01010/dashboardthemes")
 library(dqshiny)
 library(tidyverse)
 library(tools)
-source('calendarHeat.R')
+source('R/calendarHeat.R')
 
 # source('config-ec.R')     # Excelsior College
 source('config.R')          # Demo Site
 # source('config-albany.R') # UAlbany
 
-source('LOCAL_USERS.R')
+source('R/LOCAL_USERS.R')
 
 if(LOCAL_DB & file.exists(local.db)) {
 	load(local.db)

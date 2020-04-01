@@ -7,4 +7,4 @@ Here are some resources related to summary that you could recommend to your stud
 * Writing successful summaries: https://owl.excelsior.edu/research/drafting-and-integrating/drafting-and-integrating-summarizing/
 * Supporting claims with evidence: https://owl.excelsior.edu/argument-and-critical-thinking/using-evidence/
 * Strategies for addressing learning challenges: http://srl.leuridanlabs.com
-* Talk to someone in your college’s writing center.
+* Talk to someone in your college’s writing center about writing summaries.

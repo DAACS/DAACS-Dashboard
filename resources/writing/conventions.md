@@ -4,5 +4,5 @@ In the context of the DAACS writing assessment, conventions refer to the correct
 
 Here are some resources related to conventions that you could recommend to your students:
 
-* 20 most common errors here: https://owl.excelsior.edu/grammar-essentials/common-errors/
+* 20 most common errors: https://owl.excelsior.edu/grammar-essentials/common-errors/
 * Talk to someone in your college’s writing center.

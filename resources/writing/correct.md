@@ -8,5 +8,6 @@ Here are some resources related to conventions that you could recommend to your 
 * Run-on sentences: http://owl.excelsior.edu/grammar-essentials/common-errors/common-errors-run-on-sentences/
 * Sentence fragments: http://owl.excelsior.edu/grammar-essentials/common-errors/common-errors-sentence-fragment/
 * Clauses: http://owl.excelsior.edu/esl-wow/editing-polishing/check-punctuation/esl-clauses/
+* Strategies for addressing learning challenges: http://srl.leuridanlabs.com
 * Ask friends, significant others, or family members to read drafts of your writing
 * Talk to someone in your college’s writing center about writing grammatically correct sentences.

@@ -5,4 +5,4 @@ Here are some resources related to suggestions that you could recommend to your 
 * Supporting claims with evidence: https://owl.excelsior.edu/argument-and-critical-thinking/using-evidence/.
 * Analyzing assignments and thinking rhetorically: https://owl.excelsior.edu/research/assignment-analysis/. 
 * Strategies for addressing learning challenges: http://srl.leuridanlabs.com
-* Talk to someone in your college’s writing center.
+* Talk to someone in your college’s writing center about using evidence to support claims.

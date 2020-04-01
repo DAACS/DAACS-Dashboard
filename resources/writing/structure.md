@@ -9,4 +9,5 @@ Here are some resources related to conventions that you could recommend to your 
 * Prewriting strategies: https://owl.excelsior.edu/writing-process/prewriting-strategies/ 
 * Organizing your paper: https://owl.excelsior.edu/esl-wow/getting-ready-to-write/developing-a-thesis/esl-organizing-your-paper/ 
 * Ordering and drafting: https://owl.excelsior.edu/writing-process/writing-process-overview/writing-process-ordering-and-drafting/
+* Strategies for addressing learning challenges: http://srl.leuridanlabs.com
 * Talk to someone in your college’s writing center about organizing your essays. 

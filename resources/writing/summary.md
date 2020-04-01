@@ -4,7 +4,7 @@ In the context of the DAACS writing assessment, summary refers to the summary th
 
 Here are some resources related to summary that you could recommend to your students:
 
-Writing successful summaries: https://owl.excelsior.edu/research/drafting-and-integrating/drafting-and-integrating-summarizing/
-Supporting claims with evidence: https://owl.excelsior.edu/argument-and-critical-thinking/using-evidence/
-Strategies for addressing learning challenges: http://srl.leuridanlabs.com
-Talk to someone in your college’s writing center.
+* Writing successful summaries: https://owl.excelsior.edu/research/drafting-and-integrating/drafting-and-integrating-summarizing/
+* Supporting claims with evidence: https://owl.excelsior.edu/argument-and-critical-thinking/using-evidence/
+* Strategies for addressing learning challenges: http://srl.leuridanlabs.com
+* Talk to someone in your college’s writing center.

@@ -6,4 +6,5 @@ Here are some resources related to conventions that you could recommend to your 
 
 * Paragraphing: https://owl.excelsior.edu/writing-process/paragraphing/ 
 * Transitions: https://owl.excelsior.edu/writing-process/paragraphing/paragraphing-and-transitioning/
+* Strategies for addressing learning challenges: http://srl.leuridanlabs.com
 * Talk to someone in your college’s writing center about the use of transitions.

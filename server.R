@@ -57,11 +57,9 @@ shinyServer(function(input, output, session) {
 	output$dashboard.search <- renderUI({
 		searchbox <- NULL
 		if(USER$Role %in% c('ROLE_ADMIN', 'ROLE_ADVISOR')) {
-print('Select for ADMIN...')
 			# sidebarSearchForm(textId = "searchText", buttonId = "searchButton",
 			#  				  label = "Search...")
 			users <- getUsers()
-print(head(users))
 			# selectizeInput('searchText', label = 'Search',
 			# 			   choices = users$username,
 			# 			   multiple = FALSE)
@@ -81,13 +79,18 @@ print(head(users))
 							   value = value,
 							   options = structure(users$username,
 							   		names = paste0(users$firstName, ' ', users$lastName)))
+		} else if(USER$Role %in% c('ROLE_INSTRUCTOR')) {
+			# TODO: New feature coming to DAACS summer 2020
 		} else if(USER$Logged) {
+			users <- getUsers()
+			users <- users[users$username %in% c(USER$Username, 'pam@daacs.net', 'alex@daacs.net', 'neil@daacs.net', 'geddy@daacs.net'),]
 			value <- USER$Username
+			# value <- USER$Username
 			searchbox <- autocomplete_input(id = 'userSearch',
-							   label = 'Student search...',
-							   value = value,
-							   options = structure(value))
-
+											label = 'Student search...',
+											value = value,
+											options = structure(users$username,
+								names = paste0(users$firstName, ' ', users$lastName)))
 		}
 		return(searchbox)
 	})

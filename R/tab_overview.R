@@ -32,13 +32,15 @@ output$overviewTab <- renderUI({
 output$srlResult.gauge <- renderGauge({
 	results <- getResults()
 	srl <- results[results$assessmentCategory == 'COLLEGE_SKILLS',]
-	srl <- srl[srl$status == 'GRADED',]
 	overall.score <- NA
 	score <- NA
 	if(nrow(srl) > 0) {
-		scores <- getStudentResponses(srl, 1)
-		score <- round( 100 * sum(scores$score) / (nrow(scores) * 4) )
-		overall.score <- srl[1,]$overallScore
+		srl <- srl[srl$status == 'GRADED',]
+		if(nrow(srl) > 0) {
+			scores <- getStudentResponses(srl, 1)
+			score <- round( 100 * sum(scores$score) / (nrow(scores) * 4) )
+			overall.score <- srl[1,]$overallScore
+		}
 	}
 	gauge(value = score, min = 0, max = 100, symbol = '%', label = 'SRL',
 		  sectors = gaugeSectors(success = c(80, 100), warning = c(40, 80), danger = c(0, 40)))
@@ -46,9 +48,10 @@ output$srlResult.gauge <- renderGauge({
 
 output$srlResult <- renderValueBox({
 	results <- getResults()
-	srl <- results[results$assessmentCategory == 'COLLEGE_SKILLS',]
+	srl <- results[results$assessmentCategory == 'COLLEGE_SKILLS' &
+				   results$status == 'GRADED',]
 	score <- NA
-	if(nrow(srl) > 1) {
+	if(nrow(srl) > 0) {
 		score <- srl[1,]$overallScore
 	}
 	shinydashboard::valueBox(value = "SRL",
@@ -74,9 +77,10 @@ output$mathResult.gauge <- renderGauge({
 
 output$mathResult <- renderValueBox({
 	results <- getResults()
-	math <- results[results$assessmentCategory == 'MATHEMATICS',]
+	math <- results[results$assessmentCategory == 'MATHEMATICS' &
+						results$status == 'GRADED',]
 	score <- NA
-	if(nrow(math) > 1) {
+	if(nrow(math) > 0) {
 		score <- math[1,]$overallScore
 	}
 	shinydashboard::valueBox(value = "Math",
@@ -104,7 +108,7 @@ output$readingResult <- renderValueBox({
 	results <- getResults()
 	reading <- results[results$assessmentCategory == 'READING',]
 	score <- NA
-	if(nrow(reading) > 1) {
+	if(nrow(reading) > 0) {
 		score <- reading[1,]$overallScore
 	}
 	shinydashboard::valueBox(value = "Reading",
@@ -155,6 +159,7 @@ output$writingResult <- renderValueBox({
 							 width = 3,
 							 color = scoreColor(score))
 })
+
 
 output$challenges <- DT::renderDataTable({
 	results <- getResults()

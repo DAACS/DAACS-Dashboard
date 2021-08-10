@@ -41,3 +41,5 @@ config.R
 config-ec.R
 DAACS_Setup.sh
 DO_Setup.sh
+
+daacs_cache.rda

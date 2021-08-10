@@ -1,5 +1,5 @@
 shinyServer(function(input, output, session) {
-	source("R/Login.R",  local = TRUE)
+	source("R-scripts/Login.R",  local = TRUE)
 
 	getResults <- reactive({
 		results <- getUserResults(input$userSearch)
@@ -184,24 +184,24 @@ shinyServer(function(input, output, session) {
 	)
 
 	##### Institution Tab ######################################################
-	source('R/tab_institution.R', local = TRUE)
+	source('R-scripts/tab_institution.R', local = TRUE)
 
 	##### Overview Tab #########################################################
-	source('R/tab_overview.R', local = TRUE)
+	source('R-scripts/tab_overview.R', local = TRUE)
 
 	##### SRL ##################################################################
-	source('R/tab_srl.R', local = TRUE)
+	source('R-scripts/tab_srl.R', local = TRUE)
 
 	##### Writing ##############################################################
-	source('R/tab_writing.R', local = TRUE)
+	source('R-scripts/tab_writing.R', local = TRUE)
 
 	##### Mathematics ##########################################################
-	source('R/tab_mathematics.R', local = TRUE)
+	source('R-scripts/tab_mathematics.R', local = TRUE)
 
 	##### Reading ##############################################################
-	source('R/tab_reading.R', local = TRUE)
+	source('R-scripts/tab_reading.R', local = TRUE)
 
 	##### Administration #######################################################
-	source('R/tab_admin.R', local = TRUE)
+	source('R-scripts/tab_admin.R', local = TRUE)
 
 })

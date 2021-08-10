@@ -11,16 +11,16 @@ library(stringr)
 library(DT)
 library(dashboardthemes) # devtools::install_github("nik01010/dashboardthemes")
 # library(shinyTypeahead)  # devtools::install_github("ThomasSiegmund/shinyTypeahead")
-library(dqshiny)
+library(dqshiny) # remotes::install_github("daqana/dqshiny")
 library(tidyverse)
 library(tools)
-source('R/calendarHeat.R')
+source('R-scripts/calendarHeat.R')
 
 # source('config-ec.R')     # Excelsior College
 source('config.R')          # Demo Site
 # source('config-albany.R') # UAlbany
 
-source('R/LOCAL_USERS.R')
+source('R-scripts/LOCAL_USERS.R')
 
 if(LOCAL_DB & file.exists(local.db)) {
 	load(local.db)

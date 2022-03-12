@@ -35,7 +35,7 @@ vignettes/*.pdf
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
 .Rproj.user
-
+config/
 private/
 config.R
 config-ec.R
@@ -43,3 +43,6 @@ DAACS_Setup.sh
 DO_Setup.sh
 
 daacs_cache.rda
+archive/
+scotpho-profiles-tool-master/
+student_report/student_report_files/

@@ -3,6 +3,7 @@
 output:
   pdf_document:
     keep_tex: true
+    keep_md: false
     includes:
       in_header: columns.tex
     extra_dependencies: 
@@ -12,17 +13,105 @@ output:
 editor_options: 
   chunk_output_type: console
 params:
-  user: jbryer@excelsior.edu
+  num_tips: 3
+  # user: jbryer@excelsior.edu
+  user: davidwfranklinjr@gmail.com
+  config: ../config/config.R
+  #user: br352948 # Angelo Dicaprio
+  #config: ../config/config-albany.R
 ---
 
 ```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
+if(FALSE) { # For debugging
+	params <- list(user = 'davidwfranklinjr@gmail.com',	config = '../config/config.R')
+}
+
 library(mongolite)
 library(tidyverse)
+library(psych)
 
-source('../config/config.R')          # Demo Site
-# source('config-albany.R') # UAlbany
+source(params$config)
 
-source('../R/local_users.R')
+
+srl_labels <- c(
+	'motivation' = 'Motivation',
+	'strategies' = 'Strategies',
+	'metacognition' = 'Metacognition',
+	'selfefficacy' = 'Self-Efficacy',
+	"anxiety" = 'Managing Test Anxiety',
+	"evaluation" = 'Metacognition Evaluation',
+	"help_seeking" = 'Help Seeking',
+	"managing_environment" = 'Managing Environment',
+	"managing_time" = 'Managing Time',
+	"mastery_orientation" = 'Mastery Orientation',
+	"mindset" = 'Mindset',
+	"monitoring" = 'Metacognition Monitoring',
+	"planning" = 'Metacognition Planning',
+	"self_efficacy" = 'Self-Efficacy',
+	"self_efficacy_for_mathematics" = 'Self-Efficacy for Mathematics',
+	"self_efficacy_for_mathematics2" = 'Self-Efficacy for Mathematics',
+	"self_efficacy_for_reading" = 'Self-Efficacy for Reading',
+	"selfefficacy_for_reading" = 'Self-Efficacy for Reading',
+	"self_efficacy_for_writing" = 'Self-Efficacy for Writing',
+	"selfefficacy_for_writing" = 'Self-Efficacy for Writing',
+	"selfefficacy_for_online_learning" = 'Self-Efficacy for Online Learning',
+	"understanding" = 'Strategies for Understanding'
+)
+
+# TODO: Figure out if we can link from the ggplot2. Code below will work for 
+# HTML but not PDF.
+srl_links <- c(
+	'motivation' = '/assessments/college_skills/domain/motivation',
+	'strategies' = '/assessments/college_skills/domain/strategies',
+	'metacognition' = '/assessments/college_skills/domain/metacognition',
+	'selfefficacy' = '/assessments/college_skills/domain/selfefficacy',
+	"anxiety" = '/assessments/college_skills/domain/motivation/subdomain/anxiety',
+	"evaluation" = '/assessments/college_skills/domain/metacognition/subdomain/evaluation',
+	"help_seeking" = '/assessments/college_skills/domain/strategies/subdomain/help_seeking',
+	"managing_environment" = '/assessments/college_skills/domain/strategies/subdomain/managing_environment',
+	"managing_time" = '/assessments/college_skills/domain/strategies/subdomain/managing_time',
+	"mastery_orientation" = '/assessments/college_skills/domain/motivation/subdomain/mastery_orientation',
+	"mindset" = '/assessments/college_skills/domain/motivation/subdomain/mindset',
+	"monitoring" = '/assessments/college_skills/domain/metacognition/subdomain/monitoring',
+	"planning" = '/assessments/college_skills/domain/metacognition/subdomain/planning',
+	"self_efficacy" = '/assessments/college_skills/domain/selfefficacy',
+	"self_efficacy_for_mathematics" = '/assessments/college_skills/domain/selfefficacy/subdomain/self_efficacy_for_mathematics2',
+	"self_efficacy_for_mathematics2" = '/assessments/college_skills/domain/selfefficacy/subdomain/self_efficacy_for_mathematics2',
+	"self_efficacy_for_reading" = '/assessments/college_skills/domain/selfefficacy/subdomain/selfefficacy_for_reading',
+	"selfefficacy_for_reading" = '/assessments/college_skills/domain/selfefficacy/subdomain/selfefficacy_for_reading',
+	"self_efficacy_for_writing" = '/assessments/college_skills/domain/selfefficacy/subdomain/selfefficacy_for_writing',
+	"selfefficacy_for_writing" = '/assessments/college_skills/domain/selfefficacy/subdomain/selfefficacy_for_writing',
+	"selfefficacy_for_online_learning" = '/assessments/college_skills/domain/selfefficacy/subdomain/selfefficacy_for_online_learning',
+	"understanding" = '/assessments/college_skills/domain/strategies/subdomain/understanding'
+)
+
+
+srl_tips <- c(
+	# 'motivation' = '',
+	# 'strategies' = '',
+	# 'metacognition' = '',
+	'selfefficacy' = 'self_efficacy_for_online_learning.md',
+	"anxiety" = 'anxiety.md',
+	"help_seeking" = 'help_seeking.md',
+	"managing_environment" = 'managing_environment.md',
+	"managing_time" = 'managing_time.md',
+	"mastery_orientation" = 'mastery_orientation.md',
+	"mindset" = 'mindset.md',
+	"evaluation" = 'evaluation.md',
+	"monitoring" = 'monitoring.md',
+	"planning" = 'planning.md',
+	"self_efficacy" = 'self_efficacy_for_online_learning.md',
+	"self_efficacy_for_mathematics" = 'self_efficacy_for_mathematics.md',
+	"self_efficacy_for_mathematics2" = 'self_efficacy_for_mathematics.md',
+	"self_efficacy_for_reading" = 'self_efficacy_for_reading.md',
+	"selfefficacy_for_reading" = 'self_efficacy_for_reading.md',
+	"self_efficacy_for_writing" = 'self_efficacy_for_writing.md',
+	"selfefficacy_for_writing" = 'self_efficacy_for_writing.md',
+	"selfefficacy_for_online_learning" = 'self_efficacy_for_online_learning.md',
+	"understanding" = 'understanding.md'
+)
+
+# source('../R/local_users.R')
 
 if(LOCAL_DB & file.exists(local.db)) {
 	load(local.db)
@@ -30,9 +119,9 @@ if(LOCAL_DB & file.exists(local.db)) {
 	library(mongolite)
 	URI <- paste0('mongodb://', mongo.user, ':', mongo.pass, '@',
 				  mongo.host, ':', mongo.port, '/', mongo.db)
-	m.users <- mongo(url = URI, collection = mongo.collection.users)
+	# m.users <- mongo(url = URI, collection = mongo.collection.users)
 	m.user_assessments <- mongo(url = URI, collection = mongo.collection.assessments)
-	m.events <- mongo(url = URI, collection = mongo.collection.events)
+	# m.events <- mongo(url = URI, collection = mongo.collection.events)
 }
 
 guide <- as.data.frame(readxl::read_excel('../resources/guide.xlsx'))
@@ -85,6 +174,28 @@ new_page <- function() {
 	}
 }
 
+# make_link <- function(text, url) {
+# 	if(knitr::is_latex_output() | TRUE) {
+# 		return(paste0("\\href{", url, "}{", text, "}"))
+# 	} else if(knitr::is_html_output()) {
+# 		return(paste0("<a href='", url, "' target='_new'>", text, "</a>"))
+# 	}
+# }
+
+make_link <- function(text, url) {
+	return(paste0('[', text, '](', url, ')'))
+}
+
+daacs_link <- function(assessment, domain, subdomain, takenDate, userId) {
+	takenDate <- takenDate + 0.0005 # See https://stackoverflow.com/questions/10931972/r-issue-with-rounding-milliseconds
+	takenDate <- gsub(':', '%3A', format(takenDate,'%Y-%m-%dT%H:%M:%OS3Z', tz = 'GMT'))
+	return(paste0(daacs.base.url, '/assessments/', assessment,
+				  ifelse(!missing(domain), paste0('/domain/', domain), ''),
+				  ifelse(!missing(subdomain), paste0('/subdomain/', subdomain), ''),
+				  ifelse(!missing(userId), paste0('?userId=', userId, '')),
+				  ifelse(!missing(domain), paste0('&takenDate=', takenDate), '') ) )
+}
+
 colorize <- function(x, color) {
 	if(knitr::is_latex_output()) {
 		sprintf("\\textcolor[HTML]{%s}{%s}", color, x)
@@ -103,43 +214,52 @@ capitalize <- function(str) {
 }
 
 getDots <- function(str) {
-  if(str == 'LOW') {
-    return(1)
-  } else if(str == 'MEDIUM') {
-    return(2)
-  } else if(str == 'HIGH') {
-    return(3)
-  } else {
-    return(0)
-  }
+	if(is.null(str) | is.na(str)) {
+		return(0)
+	} else if(str == 'LOW') {
+		return(1)
+	} else if(str == 'MEDIUM') {
+		return(2)
+	} else if(str == 'HIGH') {
+		return(3)
+	} else {
+		return(0)
+	}
 }
 
 getDotsImage <- function(str) {
 	dot <- getDots(str)
+	txt <- ''
 	if(dot == 0) {
-		''
-	} else if(knitr::is_latex_output()) {
-		paste0("\\includegraphics[height=10px]{dots", dot, ".png}")
+		txt <- ''
+	} else if(knitr::is_latex_output() | TRUE) {
+		txt <- paste0("\\includegraphics[height=10px]{dots", dot, ".png}")
 	} else if(knitr::is_html_output()) {
-		paste0("<img src='dots", dot, ".png' height='20px' />")
+		txt <- paste0("<img src='dots", dot, ".png' height='20px' />")
 	}
+	return(txt)
 }
 
 # #54075B
 
+name <- params$user
+
+srl <- writing <- math <- read <- data.frame()
+
 results <- getUserResults(params$user)
-results <- results %>% filter(status == 'GRADED') %>% 
-	arrange(desc(takenDate)) %>%
-	distinct(assessmentCategory, .keep_all = TRUE)
-
-srl <- results %>% filter(assessmentCategory == 'COLLEGE_SKILLS')
-writing <- results %>% filter(assessmentCategory == "WRITING")
-math <- results %>% filter(assessmentCategory == 'MATHEMATICS')
-read <- results %>% filter(assessmentCategory == 'READING')
-
-name <- ''
 if(nrow(results) > 0) {
-	name <- paste0(results[1,]$firstName, ' ', results[1,]$lastName)
+	results <- results %>% filter(status == 'GRADED') %>% 
+		arrange(desc(takenDate)) %>%
+		distinct(assessmentCategory, .keep_all = TRUE)
+	
+	srl <- results %>% filter(assessmentCategory == 'COLLEGE_SKILLS')
+	writing <- results %>% filter(assessmentCategory == "WRITING")
+	math <- results %>% filter(assessmentCategory == 'MATHEMATICS')
+	read <- results %>% filter(assessmentCategory == 'READING')
+	
+	if(nrow(results) > 0) {
+		name <- paste0(results[1,]$firstName, ' ', results[1,]$lastName)
+	}
 }
 ```
 
@@ -151,6 +271,8 @@ if(knitr::is_html_output()) {
 } else if(knitr::is_latex_output()) {
 	cat('\\begin{wrapfigure}{r}{0.5\\textwidth}\\centering\\vspace{-20pt}\\hspace*{2cm}\\includegraphics[width=0.5\\textwidth]{DAACS_logo.png}\\end{wrapfigure}\n\n')
 }
+
+# name <- 'Alex Lifeson'
 ```
 
 
@@ -165,39 +287,54 @@ if(knitr::is_html_output()) {
 
 ### `r colorize("OVERALL RESULTS", "54075B")`
 
-`r getDotsImage(srl[1,]$overallScore)` Self-Regulated Learning  
-`r getDotsImage(writing[1,]$overallScore)` Writing  
-`r getDotsImage(math[1,]$overallScore)` Mathematics  
-`r getDotsImage(read[1,]$overallScore)` Reading
+`r getDotsImage(srl[1,]$overallScore)` `r make_link("Self-Regulated Learning", daacs_link('college_skills', takenDate = srl[1,]$takenDate, userId = srl[1,]$userId))`  
+`r getDotsImage(writing[1,]$overallScore)` `r make_link("Writing", daacs_link('writing', takenDate = writing[1,]$takenDate, userId = writing[1,]$userId))`  
+`r getDotsImage(math[1,]$overallScore)` `r make_link("Mathematics", daacs_link('mathematics', takenDate = math[1,]$takenDate, userId = math[1,]$userId))`  
+`r getDotsImage(read[1,]$overallScore)` `r make_link("Reading", daacs_link('reading', takenDate = read[1,]$takenDate, userId = read[1,]$userId))`
 
 ### `r colorize("SELF-REGULATED LEARNING", "54075B")`
 
-```{r, echo=FALSE, results='asis'}
+```{r srldomainoverview, echo=FALSE, results='asis', escape = FALSE}
 if(nrow(srl) > 0) {
-  cat(paste0('Completion Date: ', format(srl[1,]$completionDate, '%B %d, %Y'), '  \n'))
-  for(i in 1:nrow(srl[1,]$domainScores[[1]])) {
-    cat(paste0(getDotsImage(srl[1,]$domainScores[[1]][i,]$rubricScore), ' ',
-    		   capitalize(srl[1,]$domainScores[[1]][i,]$domainId),
-               '  \n'))
-  }
-  cat('\n')
-} else {
-	cat('No results found.')
+	cat(paste0('Completion Date: ', format(srl[1,]$completionDate, '%B %d, %Y'), '  \n\n'))
+	for(i in 1:nrow(srl[1,]$domainScores[[1]])) {
+		href <- make_link(
+			srl_labels[srl[1,]$domainScores[[1]][i,]$domainId],
+			daacs_link('college_skills', 
+					   domain = srl[1,]$domainScores[[1]][i,]$domainId, 
+					   takenDate = srl[1,]$takenDate,
+					   userId = srl[1,]$userId)
+			)
+		cat(paste0(getDotsImage(srl[1,]$domainScores[[1]][i,]$rubricScore), ' ',
+				   # capitalize(srl[1,]$domainScores[[1]][i,]$domainId),
+				   href,
+				   '  \n'))
+		}
+	cat('\n')
 }
 ```
+
 
 
 ### `r colorize("WRITING", "54075B")`
 
 ```{r, echo=FALSE, results='asis'}
 if(nrow(writing) > 0) {
-  cat(paste0('Completion Date: ', format(writing[1,]$completionDate, '%B %d, %Y'), '  \n'))
-  for(i in 1:nrow(writing[1,]$domainScores[[1]])) {
-    cat(paste0(getDotsImage(writing[1,]$domainScores[[1]][i,]$rubricScore), ' ',
-    		   capitalize(writing[1,]$domainScores[[1]][i,]$domainId),
-               '  \n'))
-  }
-  cat('\n')
+	cat(paste0('Completion Date: ', format(writing[1,]$completionDate, '%B %d, %Y'), '  \n'))
+	for(i in 1:nrow(writing[1,]$domainScores[[1]])) {
+		href <- make_link(
+			capitalize(writing[1,]$domainScores[[1]][i,]$domainId),
+			daacs_link('writing', 
+					   domain = writing[1,]$domainScores[[1]][i,]$domainId, 
+					   takenDate = writing[1,]$takenDate,
+					   userId = writing[1,]$userId)
+			)
+		cat(paste0(getDotsImage(writing[1,]$domainScores[[1]][i,]$rubricScore), ' ',
+				   # capitalize(writing[1,]$domainScores[[1]][i,]$domainId),
+				   href,
+				   '  \n'))
+	}
+	cat('\n')
 } else {
 	cat('No results found.')
 }
@@ -209,8 +346,16 @@ if(nrow(writing) > 0) {
 if(nrow(math) > 0) {
   cat(paste0('Completion Date: ', format(math[1,]$completionDate, '%B %d, %Y'), '  \n'))
   for(i in 1:nrow(math[1,]$domainScores[[1]])) {
+		href <- make_link(
+			capitalize(math[1,]$domainScores[[1]][i,]$domainId),
+			daacs_link('mathematics', 
+					   domain = math[1,]$domainScores[[1]][i,]$domainId, 
+					   takenDate = math[1,]$takenDate,
+					   userId = math[1,]$userId)
+			)
     cat(paste0(getDotsImage(math[1,]$domainScores[[1]][i,]$rubricScore), ' ',
-    		   capitalize(math[1,]$domainScores[[1]][i,]$domainId),
+    		   # capitalize(math[1,]$domainScores[[1]][i,]$domainId),
+    		   href,
                '  \n'))
   }
   cat('\n')
@@ -225,8 +370,16 @@ if(nrow(math) > 0) {
 if(nrow(read) > 0) {
   cat(paste0('Completion Date: ', format(read[1,]$completionDate, '%B %d, %Y'), '  \n'))
   for(i in 1:nrow(read[1,]$domainScores[[1]])) {
+		href <- make_link(
+			capitalize(read[1,]$domainScores[[1]][i,]$domainId),
+			daacs_link('reading', 
+					   domain = read[1,]$domainScores[[1]][i,]$domainId, 
+					   takenDate = read[1,]$takenDate,
+					   userId = read[1,]$userId)
+			)
     cat(paste0(getDotsImage(read[1,]$domainScores[[1]][i,]$rubricScore), ' ',
-    		   capitalize(read[1,]$domainScores[[1]][i,]$domainId),
+    		   # capitalize(read[1,]$domainScores[[1]][i,]$domainId),
+    		   href,
                '  \n'))
   }
   cat('\n')
@@ -234,6 +387,7 @@ if(nrow(read) > 0) {
 	cat('No results found.')
 }
 ```
+
 
 :::
 
@@ -247,74 +401,151 @@ a column separator -->
 ::: {.col data-latex="{0.55\textwidth}" style="width 55%;"}
 ```{r, echo=FALSE, results='asis'}
 if(knitr::is_latex_output()) {
-	cat('\\vspace{-1.1in}')
+	cat('\\vspace{0in}')
 }
 ```
 
-### `r colorize("WHAT IS DAACS?", "54075B")`
 
-The Diagnostic Assessment and Achievement of College Skills (DAACS) is a suite of technological and social supports to op- timize student learning. DAACS provides personalized feed- back about students' strengths and weaknesses in terms of key academic and self-regulated learning skills, linking them to the resources to help them be successful students. Visit www.DAACS.net for more information.
+Results for each assessment and domain are listed on the left-hand side of this page. You can access your complete results at `r daacs.base.url`, or click on any domain for more detailed feedback. Below are some resources and tips that can help you be more prepared for college.
 
-### `r colorize("WHAT ARE MY RESULTS?", "54075B")`
 
-DAACS is a diagnostic assessment designed to provide information about your readiness for college work. The results presented here are meant to be informative and instructional; **there is no passing or failing**. Because your results can change due to life circumstances or courses you take, you are encouraged to take any of the assessments again, especially when beginning new courses. Your results indicate whether your colleges skills are at the developing (one dot), emerging (two dots), or mastering (three dots) level. 
+### `r colorize("Self-Regulated Learning", "54075B")`
 
-### `r colorize("HOW CAN I IMPROVE?", "54075B")`
+* See the last page of this document for specific tips you can start using right away.
+* For more tips visit the Self-Regulated Learning Lab: [srl.daacs.net](https://srl.daacs.net)
 
-A number of strategies and resources are available when you login to the DAACS system. To improve your self-regulated learning skills, we recommend the SRL Lab (https://srl.daacs.net). Excelsior College's Online Writing Lab (https://owl.excelsior.edu) and Online Reading Comprehension Lab (https://owl.excelsior.edu/orc) are great resources for writing and reading, respectively. Check your DAACS results for mathematics recommendations.
+### `r colorize("Writing", "54075B")`
+
+* Visit the Online Writing Lab for tips on improving your writing skills: [owl.excelsior.edu](https://owl.excelsior.edu)
+* Schedule an appointment at the Writing Center to receive help with your writing: [albany.edu/writing](https://albany.edu/writing)
+
+### `r colorize("Mathematics", "54075B")`
+
+* Review the questions you answered incorrectly [on the DAACS website](https://assessment.albany.edu), and read the explanations for the correct answers by clicking "More Info" for each question within DAACS.
+* There are several free websites that can help you with your math skills, such as [mathantics.com](https://mathantics.com), [mathsisfun.com](https://mathsisfun.com), and [virtualnerd.com](https://virtualnerd.com)
+* If math is an area of concern and importance for you, consider scheduling an appointment with a tutor: [albany.edu/academic-advising/tutoring](https://albany.edu/academic-advising/tutoring)
+* If you are interested in STEM, visit or contact the Center for Achievement, Retention, and Student Success (CARSS) in CS 09: [albany.edu/carss](https://albany.edu/carss)
+
+### `r colorize("Reading", "54075B")`
+
+* Review the questions you answered incorrectly [on the DAACS website](https://assessment.albany.edu), and read the explanations for the correct answers by clicking "More Info" for each question within DAACS.
+* Visit the Online Reading Lab for tips on improving your reading skills: [owl.excelsior.edu/orc](https://owl.excelsior.edu/orc)
+* View the resources that are available at the UAlbany library: [library.albany.edu](https://library.albany.edu)
+* Consider scheduling an appointment with a tutor: [albany.edu/academic-advising/tutoring](https://albany.edu/academic-advising/tutoring)
+
+
+
 
 :::
 ::::::
 
 
-`r new_page()`
+`r if(nrow(writing) > 0) { new_page() }`
 
-
-### `r colorize("ESSAY", "54075B")`
 
 ```{r, echo=FALSE, results='asis'}
 if(nrow(writing) > 0) {
-	cat(writing[1,]$writingPrompt$sample)
+	cat(paste0('### ', colorize("ESSAY", "54075B")))
+	cat('\n\n')
+	text <- writing[1,]$writingPrompt$sample
+	text <- unlist(strsplit(text, '\n'))
+	text <- trimws(text)
+	
+	# text <- gsub('\n', '\n\n', text)
+	# text <- gsub('\t', '', text)
+	# text <- gsub('^\\s*', '', text)
+	# text <- gsub('\n\s*', '\n', text)
+
+	cat(paste0(text, collapse = '\n\n'))
 }
 ```
 
-`r new_page()`
+`r if(nrow(srl) > 0) { new_page() }`
 
 
-### `r colorize("SELF-REGULATED LEARNING", '54075B')`
+```{r srl-results, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+if(nrow(srl) > 0) {
+	cat(paste0('### ', colorize("SELF-REGULATED LEARNING", '54075B')))
+	cat('\n\n')
+	
+	takenDate <- srl[1,]$takenDate + 0.0005 # See https://stackoverflow.com/questions/10931972/r-issue-with-rounding-milliseconds
+	takenDate <- gsub(':', '%3A', format(takenDate,'%Y-%m-%dT%H:%M:%OS3Z', tz = 'GMT'))
 
-```{r srl-results, echo=FALSE, message=FALSE, warning=FALSE}
-srl_items <- getStudentResponses(srl, 1)
-library(psych)
-library(ggplot2)
-labels <- c("anxiety" = 'Test Anxiety',
-			"evaluation" = 'Metacognition Evaluation',
-			"help_seeking" = 'Help Seeking',
-			"managing_environment" = 'Managing Environment',
-			"managing_time" = 'Managing Time',
-			"mastery_orientation" = 'Mastery Orientation',
-			"mindset" = 'Mindset',
-			"monitoring" = 'Metacognition Monitoring',
-			"planning" = 'Metacognition Planning',
-			"self_efficacy" = 'Self-Efficacy',
-			"self_efficacy_for_mathematics" = 'Self-Efficacy for Mathematics',
-			"self_efficacy_for_reading" = 'Self-Efficacy for Reading',
-			"self_efficacy_for_writing" = 'Self-Efficacy for Writing',
-			"selfefficacy_for_online_learning" = 'Self-Efficacy for Online Learning',
-			"understanding" = 'Strategies for Understanding'
-)
-tab <- describeBy(srl_items$score, group = srl_items$domain, mat = TRUE, skew = FALSE)
-tab <- tab %>% arrange(desc(mean))
-ggplot(tab, aes(x = group1, y = mean)) +
-	geom_segment(aes(x = group1, xend = group1, y = 0, yend = mean), alpha = 0.5, size = 1) +
-	geom_point(color = '#54075B', size = 5) +
-	coord_flip() +
-	xlab('') + ylab('') +
-	scale_x_discrete(limits = rev(tab$group1),
-					 labels = rev(labels[tab$group1])) +
-	scale_y_continuous(breaks = c(2, 3, 4), 
-					   labels = c('Developing', 'Emerging', 'Mastering')) +
-	theme_minimal() +
-	theme(panel.grid.minor.x = element_blank(),
-		  axis.text.x = element_text(hjust = 1)) 
+	srl_items <- getStudentResponses(srl, 1)
+	tab <- describeBy(srl_items$score, group = srl_items$domain, mat = TRUE, skew = FALSE)
+	tab <- tab %>% arrange(desc(mean))
+	row.names(tab) <- tab$group1
+	tab$link <- paste0(daacs.base.url, '/', srl_links[tab$group1],
+					   '?userId=', srl[1,]$userId, '&takenDate=', takenDate)
+	
+	p <- ggplot(tab, aes(x = group1, y = mean)) +
+		geom_segment(aes(x = group1, xend = group1, y = 0, yend = mean), alpha = 0.5, size = 1) +
+		geom_point(color = '#54075B', size = 5) +
+		coord_flip() +
+		xlab('') + ylab('') +
+		scale_x_discrete(limits = rev(tab$group1),
+						 labels = rev(srl_labels[tab$group1])) +
+		scale_y_continuous(breaks = c(2, 3, 4), 
+						   limits = c(0, 4),
+						   labels = c('Developing', 'Emerging', 'Mastering')) +
+		theme_minimal() +
+		theme(panel.grid.minor.x = element_blank(),
+			  axis.text.x = element_text(hjust = 1))
+	
+	p
+	
+	# https://stackoverflow.com/questions/42259826/hyperlinking-text-in-a-ggplot2-visualization
+	#  ggsave( tf1 <- tempfile(fileext = ".svg"), p)
+	#  # links <- with(df, setNames(link, car))
+	#  
+	#  xml <- xml2::read_xml(tf1)
+	#  xml %>%
+	#  	xml2::xml_find_all(xpath="//d1:text") %>% 
+	#  	keep(xml2::xml_text(.) %in% names(srl_links)) %>% 
+	#  	xml2::xml_add_parent("a", "xlink:href" = links[xml_text(.)], target = "_blank")
+	#  xml2::write_xml(xml, tf2 <- tempfile(fileext = ".svg"))
+	# cat(paste(readLines(tf2), collapse = "\n"))
+	# library(grid)
+	# grid.force()
+	# ## List all grobs in plot
+	# grid.ls()
+	# ## Find the grobs representing the text labels on the axes
+	# tickLabels <- grid.grep("axis::text", grep=TRUE, global=TRUE)
+	# ## Check which one is the y-axis
+	# lapply(tickLabels, function(x) grid.get(x)$label)
+	# 
+	# ## Add hyperlinks to the axis tick labels
+	# library(gridSVG)
+	# grid.hyperlink(tickLabels[[1]],
+	#                href=tab$link,
+	#                group=FALSE)
+}
 ```
+
+Here are three areas of self-regulated learning that you might want to work on, along with tips you can start using right away. Click on any of the areas of SRL in the text below to learn more.
+
+```{r srl-tips, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+if(nrow(srl) > 0) {
+	srl_items <- getStudentResponses(srl, 1)
+	tab <- describeBy(srl_items$score, group = srl_items$domain, mat = TRUE, skew = FALSE)
+	tab <- tab %>% arrange(mean)
+	tip_num <- 1
+	for(i in 1:nrow(tab)) { # how many tips to include
+		tipfile <- paste0('tips/', srl_tips[tab[i,]$group1])
+		if(file.exists(tipfile)) {
+			tips <- readLines(tipfile)
+			cat(tips, sep = '\n')
+			cat('\n\n')
+			tip_num <- tip_num + 1
+			if(tip_num > params$num_tips) {
+				break;
+			}
+		}
+	}
+}
+```
+
+```{r math-results, echo=FALSE, message=FALSE, warning=FALSE}
+```
+
+

@@ -1,61 +1,69 @@
 library(shiny)
-library(shinyBS)
-library(shinythemes) # layouts for shiny
-library(dplyr) # data manipulation
-library(ggplot2) #data visualization
-library(DT) # for data tables
-library(shinyWidgets) # for extra widgets
-library(shinyjs)
-library(shinydashboard) #for valuebox on techdoc tab
-library(shinycssloaders) #for loading icons, see line below
-# it uses github version devtools::install_github("andrewsali/shinycssloaders")
-# This is to avoid issues with loading symbols behind charts and perhaps with bouncing of app
-library(rmarkdown)
-library(shinymanager)
-library(digest)
-# library(daacsR)
+library(shinyauthr)
+library(mongolite)
+library(tidyverse)
+library(shinydashboard)
+library(shinyWidgets)
 
-source('R/calendarHeat.R')
-source('R/colortable.R')
-source('R/db.R')
-source('R/generateDAACSReport.R')
+source('config.R')
 
-source('config/config.R')
-
-source('R/local_users.R')
-
-if(LOCAL_DB & file.exists(local.db)) {
-	load(local.db)
-} else {
-	library(mongolite)
-	URI <- paste0('mongodb://', mongo.user, ':', mongo.pass, '@',
-				  mongo.host, ':', mongo.port, '/', mongo.db)
-	m.users <- mongo(url = URI, collection = mongo.collection.users)
-	m.user_assessments <- mongo(url = URI, collection = mongo.collection.assessments)
-	m.events <- mongo(url = URI, collection = mongo.collection.events)
-}
-
-guide <- as.data.frame(readxl::read_excel('resources/guide.xlsx'))
-writing.rubric <- as.data.frame(readxl::read_excel('resources/writing/rubric.xlsx'))
-
-
-css <- c(
-	"#bgred {background-color: #1f78b4;}",
-	"#bgblue {background-color: #0000FF;}",
-	"#bgyellow {background-color: #b2df8a;}",
-	"#bggreen {background-color: #33a02c;}"
+# user database for logins
+user_base <- tibble::tibble(
+	user = c("user1", "user2"),
+	password = purrr::map_chr(c("pass1", "pass2"), sodium::password_store),
+	permissions = c("admin", "standard"),
+	name = c("User One", "User Two")
 )
 
-perc.rank <- function(x, score) {
-	length(x[x <= score]) / length(x) * 100
-}
+assessment_labels <- c(COLLEGE_SKILLS = 'SRL',
+					   WRITING = 'Writing',
+					   MATHEMATICS = 'Mathematics',
+					   READING = 'Reading')
 
-# For Shiny manager
-# Call get_labels() for a list of labels that can be changed
-set_labels(
-	language = "en",
-	"Please authenticate" = "Please login",
-	"Username:" = "Username:",
-	"Password:" = "Password:",
-	"You are not authorized for this application" = "Incorrect username or password!"
+
+user_fields <- c('_id', 'username', #'password',
+				 'firstName', 'lastName', 'roles',
+				 'assessmentType', 'assessmentCategory', 'assessmentLabel',
+				 'createdDate')
+user_fields <- paste0("{", paste0('"', user_fields, '":', 1:length(user_fields), collapse = ', '), "}")
+
+assessment_fields <- c('_id', 'username',
+					   'firstName', 'lastName',
+					   'assessmentCategory', 'assessmentLabel',
+					   'takenDate', 'completionDate', 'status', 'progressPercent',
+					   'overallScore')
+assessment_fields <- paste0("{", paste0('"', assessment_fields, '":', 1:length(assessment_fields), collapse = ', '), "}")
+
+event_fields = c('_id', 'userEvents', 'version')
+event_fields <- paste0("{", paste0('"', event_fields, '":', 1:length(event_fields), collapse = ', '), "}")
+
+
+##### Additional tabs to be added after login ##################################
+home_tab <- tabPanel(
+	title = icon("user"),
+	value = "home",
+	column(
+		width = 12,
+		tags$h2("User Information"),
+		verbatimTextOutput("user_data")
+	)
+)
+
+data_tab <- tabPanel(
+	title = 'Students',
+	icon = icon("table"),
+	value = "data",
+	column(
+		width = 12,
+		# uiOutput("data_title"),
+		DT::DTOutput("table")
+	)
+)
+
+log_file_tab <- tabPanel(
+	'Log Files',
+	icon = icon('file-lines'),
+	value = 'log_files',
+	uiOutput('log_file'),
+	verbatimTextOutput('log_file_contents')
 )

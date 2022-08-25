@@ -7,14 +7,6 @@ library(shinyWidgets)
 
 source('config.R')
 
-# user database for logins
-user_base <- tibble::tibble(
-	user = c("user1", "user2"),
-	password = purrr::map_chr(c("pass1", "pass2"), sodium::password_store),
-	permissions = c("admin", "standard"),
-	name = c("User One", "User Two")
-)
-
 assessment_labels <- c(COLLEGE_SKILLS = 'SRL',
 					   WRITING = 'Writing',
 					   MATHEMATICS = 'Mathematics',
@@ -66,4 +58,12 @@ log_file_tab <- tabPanel(
 	value = 'log_files',
 	uiOutput('log_file'),
 	verbatimTextOutput('log_file_contents')
+)
+
+# login tab ui to be rendered on launch
+login_tab <- tabPanel(
+	title = 'Login',
+	icon = icon("lock"),
+	value = "login",
+	shinyauthr::loginUI("login")
 )

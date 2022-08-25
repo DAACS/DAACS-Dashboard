@@ -202,14 +202,6 @@ function(input, output, session) {
 		active = reactive(credentials()$user_auth)
 	)
 
-	# login tab ui to be rendered on launch
-	login_tab <- tabPanel(
-		title = 'Login',
-		icon = icon("lock"),
-		value = "login",
-		shinyauthr::loginUI("login")
-	)
-
 	observeEvent(credentials()$user_auth, {
 		# if user logs in successfully
 		if (credentials()$user_auth) {

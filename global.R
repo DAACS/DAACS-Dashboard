@@ -63,7 +63,7 @@ log_file_tab <- tabPanel(
 # login tab ui to be rendered on launch
 login_tab <- tabPanel(
 	title = 'Login',
-	icon = icon("lock"),
+	icon = icon("unlock"),
 	value = "login",
 	shinyauthr::loginUI("login")
 )

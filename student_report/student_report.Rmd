@@ -15,10 +15,10 @@ editor_options:
 params:
   num_tips: 3
   # user: jbryer@excelsior.edu
-  user: davidwfranklinjr@gmail.com
-  config: ../config/config.R
-  #user: br352948 # Angelo Dicaprio
-  #config: ../config/config-albany.R
+  # user: davidwfranklinjr@gmail.com
+  # config: ../config/config.R
+  user: fc575518
+  config: ../config/config-albany.R
 ---
 
 ```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
@@ -113,34 +113,18 @@ srl_tips <- c(
 
 # source('../R/local_users.R')
 
-if(LOCAL_DB & file.exists(local.db)) {
-	load(local.db)
-} else {
-	library(mongolite)
-	URI <- paste0('mongodb://', mongo.user, ':', mongo.pass, '@',
-				  mongo.host, ':', mongo.port, '/', mongo.db)
-	# m.users <- mongo(url = URI, collection = mongo.collection.users)
-	m.user_assessments <- mongo(url = URI, collection = mongo.collection.assessments)
-	# m.events <- mongo(url = URI, collection = mongo.collection.events)
-}
+library(mongolite)
+URI <- paste0('mongodb://', mongo.user, ':', mongo.pass, '@',
+			  mongo.host, ':', mongo.port, '/', mongo.db)
+# m.users <- mongo(url = URI, collection = mongo.collection.users)
+m.user_assessments <- mongo(url = URI, collection = mongo.collection.assessments)
+# m.events <- mongo(url = URI, collection = mongo.collection.events)
 
 guide <- as.data.frame(readxl::read_excel('../resources/guide.xlsx'))
 writing.rubric <- as.data.frame(readxl::read_excel('../resources/writing/rubric.xlsx'))
 
 getUserResults <- function(username) {
-	if(LOCAL_DB) {
-		results <- user_assessments[user_assessments$username == username, ]
-	} else {
-		# fields <- c('_id', 'username', 'userId', 'assessmentId',
-		# 			'assessmentType', 'assessmentCategory', 'assessmentLabel',
-		# 			'takenDate', 'status', 'progressPercentage', 'completionDate',
-		# 			'domainScores', 'overallScore', 'scoringType', 'writingPrompt')
-		# f <- paste0("{", paste0('"', fields, '":', 1:length(fields), collapse = ', '), "}")
-		# results <- m.user_assessments$find(paste0('{"username":"', username, '"}'),
-		# 								   field = f)
-		#
-		results <- m.user_assessments$find(paste0('{"username":"', username, '"}'))
-	}
+	results <- m.user_assessments$find(paste0('{"username":"', username, '"}'))
 	return(results)
 }
 

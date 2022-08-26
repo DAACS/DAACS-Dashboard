@@ -67,3 +67,19 @@ login_tab <- tabPanel(
 	value = "login",
 	shinyauthr::loginUI("login")
 )
+
+
+##### Utility functions
+disk_usage <- function(path = Sys.getenv("HOME")) {
+	if(length(system("which df", intern = TRUE, ignore.stdout = FALSE, ignore.stderr = TRUE))) {
+		cmd <- sprintf("df %s", path)
+		exec <- system(cmd, intern = TRUE, ignore.stdout = FALSE, ignore.stderr = TRUE)
+		exec <- strsplit(exec[length(exec)], "[ ]+")[[1]]
+		exec <- as.numeric(exec[3:4])
+		structure(exec, names = c("used", "available"))
+	} else {
+		stop("'df' command not found")
+	}
+}
+# utils:::format.object_size(disk_usage(path = '/')[2], "auto")
+

@@ -31,7 +31,7 @@ function(input, output, session) {
 	get_admins <- reactive({
 		users <- get_users()
 		admins <- users |> filter(roles %in% c('ROLE_ADMIN'))
-
+		return(admins)
 	})
 
 	get_assessments <- reactive({
@@ -219,9 +219,14 @@ function(input, output, session) {
 			user_permission <- credentials()$info$permissions
 			if (user_permission == "admin") {
 				# output$data_title <- renderUI(tags$h2("Storms data. Permissions: admin"))
-				output$table <- DT::renderDT(
-					{ get_users() },
-					options = list(pageLength = 50, autoWidth = TRUE),
+				output$table <- DT::renderDataTable(DT::datatable({
+						users <- get_users()
+						users$Summary_Report <- paste0(
+							"<a href='", summary_report_url, users[,'_id'], "' target='_new'>",
+							summary_report_url, users[,'_id'], "</a>")
+						users
+					}, escape = FALSE),
+					options = list(pageLength = 50, autoWidth = TRUE, escape = FALSE),
 					filter = list(position = 'top', clear = FALSE)
 				)
 			} else if (user_permission == "standard") {

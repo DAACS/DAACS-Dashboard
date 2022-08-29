@@ -16,13 +16,13 @@ params:
   num_tips: 3
   # user: davidwfranklinjr@gmail.com
   # config: ../config/config.R
-  user: "ewhitaker4@student.umgc.edu" # Angelo Dicaprio
+  user: "jason@bryer.org"
   config: "../config/config-umgc.R"
 ---
 
 ```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
 if(FALSE) { # For debugging
-	params <- list(user = 'ewhitaker4@student.umgc.edu',	config = '../config/config-umgc.R')
+	params <- list(user = 'jason@bryer.org', config = '../config/config-umgc.R')
 }
 
 library(mongolite)

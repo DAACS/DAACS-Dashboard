@@ -8,6 +8,7 @@ output:
       in_header: columns.tex
     extra_dependencies: 
       wrapfig: null
+      xcolor: null
   html_document:
     css: columns.css
 editor_options: 

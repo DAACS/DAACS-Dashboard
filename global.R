@@ -4,6 +4,7 @@ library(mongolite)
 library(tidyverse)
 library(shinydashboard)
 library(shinyWidgets)
+library(reshape2)
 
 source('config.R')
 

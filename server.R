@@ -25,6 +25,20 @@ function(input, output, session) {
 		m.users <- mongo(url = URI, collection = mongo.collection.users)
 		users <- m.users$find(fields = user_fields)
 		users$roles <- sapply(users$roles, FUN = function(x) { x[[1]] })
+
+		# Merge in assessment results
+		assmts <- get_assessments()
+		assmts <- assmts |>
+			filter(status == 'GRADED') |>
+			arrange(desc(completionDate)) |>
+			select(username, assessmentCategory, overallScore) |>
+			distinct(username, assessmentCategory, .keep_all = TRUE) |>
+			dcast(username ~ assessmentCategory, value.var = 'overallScore')
+		assmts$DAACS_Complete <- apply(assmts, 1, FUN = function(x) { all(!is.na(x)) })
+
+		users <- merge(users, assmts, by = 'username', all.x = TRUE)
+		users[which(is.na(users$DAACS_Complete)),]$DAACS_Complete <- FALSE
+
 		return(users)
 	})
 
@@ -221,14 +235,20 @@ function(input, output, session) {
 				# output$data_title <- renderUI(tags$h2("Storms data. Permissions: admin"))
 				output$table <- DT::renderDataTable(DT::datatable({
 						users <- get_users()
-						users$Summary_Report <- paste0(
-							"<a href='", summary_report_url, users[,'_id'], "' target='_new'>",
-							summary_report_url, users[,'_id'], "</a>")
+						# rows <- users$DAACS_Complete
+						rows <- apply(users[,c('COLLEGE_SKILLS', 'MATHEMATICS', 'WRITING', 'READING')], 1, FUN = function(x) { any(!is.na(x))})
+						users$Summary_Report <- ''
+						users[rows,]$Summary_Report <- paste0(
+							"<a href='", summary_report_url, users[rows,'_id'], "' target='_new'>",
+							'PDF', "</a>")
 						users
-					}, escape = FALSE),
-					options = list(pageLength = 50, autoWidth = TRUE, escape = FALSE),
+					}, escape = FALSE,
+					options = list(pageLength = 50,
+								   autoWidth = TRUE,
+								   escape = FALSE,
+								   filter = list(position = 'top')),
 					filter = list(position = 'top', clear = FALSE)
-				)
+				))
 			} else if (user_permission == "standard") {
 				# output$data_title <- renderUI(tags$h2("Starwars data. Permissions: standard"))
 				# output$table <- DT::renderDT({ dplyr::starwars[, 1:10] })

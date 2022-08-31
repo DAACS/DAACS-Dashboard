@@ -123,8 +123,8 @@ server <- function(input, output, session) {
 
             rmdfile <- paste0('student_report', institution, '.Rmd')
 
-            orig_wd <- setwd('summary_report')
-            rmarkdown::render(rmdfile,
+            # orig_wd <- setwd('summary_report')
+            rmarkdown::render(paste0('summary_report/', rmdfile),
                               output_dir = outdir,
                               output_file = outfile,
                               params = list(user = username,
@@ -138,7 +138,7 @@ server <- function(input, output, session) {
                 con = paste0(outdir, outfile),
                 what = "raw",
                 n = file.info(paste0(outdir, outfile))[, "size"])
-            setwd(orig_wd)
+            # setwd(orig_wd)
             writeBin(rawfile, con = file)
         }
     )

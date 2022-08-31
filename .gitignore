@@ -50,4 +50,8 @@ student_reports/
 student_report/
 setup/
 logs/
+summary_report/summary_report/*.tex
+summary_report/summary_report/*.pdf
+summary_report/generated/
+summary_report/summary_report/generated/
 

@@ -71,7 +71,7 @@ function(input, output, session) {
 	##### Info Boxes ###########################################################
 	output$unscored_assessments <- renderInfoBox({
 		assmts <- get_assessments() |>
-			filter(status == 'GRADING_FAILURE')
+			filter(status %in% c('GRADING_FAILURE', 'COMPLETED'))
 		color <- 'green'
 		if(nrow(assmts) > 10) {
 			color = 'red'

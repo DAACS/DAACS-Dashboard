@@ -1,2 +1,3 @@
 # DAACS-Dashboard
-Advisor dashboard for viewing student results.
+
+Dashboard to view server status, student results, and to generate status reports.

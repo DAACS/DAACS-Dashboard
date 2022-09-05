@@ -55,3 +55,8 @@ summary_report/summary_report/*.pdf
 summary_report/generated/
 summary_report/summary_report/generated/
 
+DaacsFunctions.html
+DaacsFunctions.Rmd
+student_reports_ualbany.R
+student_reports_umgc.R
+student_reports_umgcInmydaacs.R

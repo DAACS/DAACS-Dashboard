@@ -49,7 +49,7 @@ server <- function(input, output, session) {
 
     getUserData <- reactive({
         institution <- getInstitution()
-        source(paste0('config/config', institution, '.R'), local = TRUE)
+        source(paste0('../config', institution, '.R'), local = TRUE)
         URI <- paste0('mongodb://', mongo.user, ':', mongo.pass, '@',
                       mongo.host, ':', mongo.port, '/', mongo.db)
         m.users <- mongo(url = URI,

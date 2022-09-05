@@ -15,12 +15,12 @@ editor_options:
 params:
   num_tips: 3
   user: jbryer@excelsior.edu
-  config: ../../config-my.R
+  config: ../../config.R
 ---
 
 ```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
 if(FALSE) { # For debugging
-	params <- list(user = 'davidwfranklinjr@gmail.com',	config = '../config/config-my.R')
+	params <- list(user = 'davidwfranklinjr@gmail.com',	config = '../../config.R')
 }
 
 library(mongolite)
@@ -28,8 +28,8 @@ library(tidyverse)
 library(psych)
 
 source(params$config)
-source('functions.R')
-source('mappings.R')
+source('functions.R', local=TRUE)
+source('mappings.R', local=TRUE)
 
 # Read in supporing data files
 guide <- as.data.frame(readxl::read_excel('../resources/guide.xlsx'))

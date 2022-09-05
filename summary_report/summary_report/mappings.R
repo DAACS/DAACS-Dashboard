@@ -1,0 +1,77 @@
+srl_labels <- c(
+	'motivation' = 'Motivation',
+	'strategies' = 'Strategies',
+	'metacognition' = 'Metacognition',
+	'selfefficacy' = 'Self-Efficacy',
+	"anxiety" = 'Managing Test Anxiety',
+	"evaluation" = 'Metacognition Evaluation',
+	"help_seeking" = 'Help Seeking',
+	"managing_environment" = 'Managing Environment',
+	"managing_time" = 'Managing Time',
+	"mastery_orientation" = 'Mastery Orientation',
+	"mindset" = 'Mindset',
+	"monitoring" = 'Metacognition Monitoring',
+	"planning" = 'Metacognition Planning',
+	"self_efficacy" = 'Self-Efficacy',
+	"self_efficacy_for_mathematics" = 'Self-Efficacy for Mathematics',
+	"self_efficacy_for_mathematics2" = 'Self-Efficacy for Mathematics',
+	"self_efficacy_for_reading" = 'Self-Efficacy for Reading',
+	"selfefficacy_for_reading" = 'Self-Efficacy for Reading',
+	"self_efficacy_for_writing" = 'Self-Efficacy for Writing',
+	"selfefficacy_for_writing" = 'Self-Efficacy for Writing',
+	"selfefficacy_for_online_learning" = 'Self-Efficacy for Online Learning',
+	"understanding" = 'Strategies for Understanding'
+)
+
+# TODO: Figure out if we can link from the ggplot2. Code below will work for
+# HTML but not PDF.
+srl_links <- c(
+	'motivation' = '/assessments/college_skills/domain/motivation',
+	'strategies' = '/assessments/college_skills/domain/strategies',
+	'metacognition' = '/assessments/college_skills/domain/metacognition',
+	'selfefficacy' = '/assessments/college_skills/domain/selfefficacy',
+	"anxiety" = '/assessments/college_skills/domain/motivation/subdomain/anxiety',
+	"evaluation" = '/assessments/college_skills/domain/metacognition/subdomain/evaluation',
+	"help_seeking" = '/assessments/college_skills/domain/strategies/subdomain/help_seeking',
+	"managing_environment" = '/assessments/college_skills/domain/strategies/subdomain/managing_environment',
+	"managing_time" = '/assessments/college_skills/domain/strategies/subdomain/managing_time',
+	"mastery_orientation" = '/assessments/college_skills/domain/motivation/subdomain/mastery_orientation',
+	"mindset" = '/assessments/college_skills/domain/motivation/subdomain/mindset',
+	"monitoring" = '/assessments/college_skills/domain/metacognition/subdomain/monitoring',
+	"planning" = '/assessments/college_skills/domain/metacognition/subdomain/planning',
+	"self_efficacy" = '/assessments/college_skills/domain/selfefficacy',
+	"self_efficacy_for_mathematics" = '/assessments/college_skills/domain/selfefficacy/subdomain/self_efficacy_for_mathematics2',
+	"self_efficacy_for_mathematics2" = '/assessments/college_skills/domain/selfefficacy/subdomain/self_efficacy_for_mathematics2',
+	"self_efficacy_for_reading" = '/assessments/college_skills/domain/selfefficacy/subdomain/selfefficacy_for_reading',
+	"selfefficacy_for_reading" = '/assessments/college_skills/domain/selfefficacy/subdomain/selfefficacy_for_reading',
+	"self_efficacy_for_writing" = '/assessments/college_skills/domain/selfefficacy/subdomain/selfefficacy_for_writing',
+	"selfefficacy_for_writing" = '/assessments/college_skills/domain/selfefficacy/subdomain/selfefficacy_for_writing',
+	"selfefficacy_for_online_learning" = '/assessments/college_skills/domain/selfefficacy/subdomain/selfefficacy_for_online_learning',
+	"understanding" = '/assessments/college_skills/domain/strategies/subdomain/understanding'
+)
+
+
+srl_tips <- c(
+	# 'motivation' = '',
+	# 'strategies' = '',
+	# 'metacognition' = '',
+	'selfefficacy' = 'self_efficacy_for_online_learning.md',
+	"anxiety" = 'anxiety.md',
+	"help_seeking" = 'help_seeking.md',
+	"managing_environment" = 'managing_environment.md',
+	"managing_time" = 'managing_time.md',
+	"mastery_orientation" = 'mastery_orientation.md',
+	"mindset" = 'mindset.md',
+	"evaluation" = 'evaluation.md',
+	"monitoring" = 'monitoring.md',
+	"planning" = 'planning.md',
+	"self_efficacy" = 'self_efficacy_for_online_learning.md',
+	"self_efficacy_for_mathematics" = 'self_efficacy_for_mathematics.md',
+	"self_efficacy_for_mathematics2" = 'self_efficacy_for_mathematics.md',
+	"self_efficacy_for_reading" = 'self_efficacy_for_reading.md',
+	"selfefficacy_for_reading" = 'self_efficacy_for_reading.md',
+	"self_efficacy_for_writing" = 'self_efficacy_for_writing.md',
+	"selfefficacy_for_writing" = 'self_efficacy_for_writing.md',
+	"selfefficacy_for_online_learning" = 'self_efficacy_for_online_learning.md',
+	"understanding" = 'understanding.md'
+)

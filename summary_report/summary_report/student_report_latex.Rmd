@@ -2,7 +2,7 @@
 # title: DAACS Summary Report
 output:
   pdf_document:
-    keep_tex: true
+    keep_tex: false
     keep_md: false
     includes:
       in_header: columns.tex
@@ -27,7 +27,6 @@ if(FALSE) { # For debugging
 library(mongolite)
 library(tidyverse)
 library(psych)
-library(stringi)
 
 source(params$config)
 source('functions.R', local=TRUE)
@@ -74,23 +73,32 @@ if(knitr::is_html_output()) {
 ```
 
 
-# `r name`  
-## `r colorize("DAACS Summary Report", "54075B")`
+
+\hypertarget{`r name`}{%
+\section{`r name`}\label{`r name`}}
+
+\hypertarget{section}{%
+\subsection{\texorpdfstring{\textcolor[HTML]{54075B}{DAACS Summary Report}}{}}\label{section}}
 
 
+\begin{cols}
 
-:::::: {.cols data-latex=""}
+\begin{col}{0.40\textwidth}
 
-::: {.col data-latex="{0.40\\textwidth}" style="width 40%; min-width:300px"}
 
-### `r colorize("OVERALL RESULTS", "54075B")`
+\hypertarget{section-1}{%
+\subsubsection{\texorpdfstring{\textcolor[HTML]{54075B}{OVERALL RESULTS}}{}}\label{section-1}}
 
 `r getDotsImage(srl[1,]$overallScore)` `r make_link("Self-Regulated Learning", daacs_link('college_skills', takenDate = srl[1,]$takenDate, userId = srl[1,]$userId))`  
+
 `r getDotsImage(writing[1,]$overallScore)` `r make_link("Writing", daacs_link('writing', takenDate = writing[1,]$takenDate, userId = writing[1,]$userId))`  
+
 `r getDotsImage(math[1,]$overallScore)` `r make_link("Mathematics", daacs_link('mathematics', takenDate = math[1,]$takenDate, userId = math[1,]$userId))`  
+
 `r getDotsImage(read[1,]$overallScore)` `r make_link("Reading", daacs_link('reading', takenDate = read[1,]$takenDate, userId = read[1,]$userId))`
 
-### `r colorize("SELF-REGULATED LEARNING", "54075B")`
+\hypertarget{section-2}{%
+\subsubsection{\texorpdfstring{\textcolor[HTML]{54075B}{SELF-REGULATED LEARNING}}{}}\label{section-2}}
 
 ```{r srldomainoverview, echo=FALSE, results='asis', escape = FALSE}
 if(nrow(srl) > 0) {
@@ -106,7 +114,7 @@ if(nrow(srl) > 0) {
 		cat(paste0(getDotsImage(srl[1,]$domainScores[[1]][i,]$rubricScore), ' ',
 				   # capitalize(srl[1,]$domainScores[[1]][i,]$domainId),
 				   href,
-				   '  \n'))
+				   '  \n\n'))
 		}
 	cat('\n')
 }
@@ -114,11 +122,12 @@ if(nrow(srl) > 0) {
 
 
 
-### `r colorize("WRITING", "54075B")`
+\hypertarget{section-3}{%
+\subsubsection{\texorpdfstring{\textcolor[HTML]{54075B}{WRITING}}{}}\label{section-3}}
 
 ```{r, echo=FALSE, results='asis'}
 if(nrow(writing) > 0) {
-	cat(paste0('Completion Date: ', format(writing[1,]$completionDate, '%B %d, %Y'), '  \n'))
+	cat(paste0('Completion Date: ', format(writing[1,]$completionDate, '%B %d, %Y'), '  \n\n'))
 	for(i in 1:nrow(writing[1,]$domainScores[[1]])) {
 		href <- make_link(
 			capitalize(writing[1,]$domainScores[[1]][i,]$domainId),
@@ -130,7 +139,7 @@ if(nrow(writing) > 0) {
 		cat(paste0(getDotsImage(writing[1,]$domainScores[[1]][i,]$rubricScore), ' ',
 				   # capitalize(writing[1,]$domainScores[[1]][i,]$domainId),
 				   href,
-				   '  \n'))
+				   '  \n\n'))
 	}
 	cat('\n')
 } else {
@@ -138,11 +147,13 @@ if(nrow(writing) > 0) {
 }
 ```
 
-### `r colorize("MATHEMATICS", "54075B")`
+\hypertarget{section-4}{%
+\subsubsection{\texorpdfstring{\textcolor[HTML]{54075B}{MATHEMATICS}}{}}\label{section-4}}
+
 
 ```{r, echo=FALSE, results='asis'}
 if(nrow(math) > 0) {
-  cat(paste0('Completion Date: ', format(math[1,]$completionDate, '%B %d, %Y'), '  \n'))
+  cat(paste0('Completion Date: ', format(math[1,]$completionDate, '%B %d, %Y'), '  \n\n'))
   for(i in 1:nrow(math[1,]$domainScores[[1]])) {
 		href <- make_link(
 			capitalize(math[1,]$domainScores[[1]][i,]$domainId),
@@ -154,7 +165,7 @@ if(nrow(math) > 0) {
     cat(paste0(getDotsImage(math[1,]$domainScores[[1]][i,]$rubricScore), ' ',
     		   # capitalize(math[1,]$domainScores[[1]][i,]$domainId),
     		   href,
-               '  \n'))
+               '  \n\n'))
   }
   cat('\n')
 } else {
@@ -162,11 +173,12 @@ if(nrow(math) > 0) {
 }
 ```
 
-### `r colorize("READING", "54075B")`
+\hypertarget{section-5}{%
+\subsubsection{\texorpdfstring{\textcolor[HTML]{54075B}{READING}}{}}\label{section-5}}
 
 ```{r, echo=FALSE, results='asis'}
 if(nrow(read) > 0) {
-  cat(paste0('Completion Date: ', format(read[1,]$completionDate, '%B %d, %Y'), '  \n'))
+  cat(paste0('Completion Date: ', format(read[1,]$completionDate, '%B %d, %Y'), '  \n\n'))
   for(i in 1:nrow(read[1,]$domainScores[[1]])) {
 		href <- make_link(
 			capitalize(read[1,]$domainScores[[1]][i,]$domainId),
@@ -178,7 +190,7 @@ if(nrow(read) > 0) {
     cat(paste0(getDotsImage(read[1,]$domainScores[[1]][i,]$rubricScore), ' ',
     		   # capitalize(read[1,]$domainScores[[1]][i,]$domainId),
     		   href,
-               '  \n'))
+               '  \n\n'))
   }
   cat('\n')
 } else {
@@ -187,29 +199,26 @@ if(nrow(read) > 0) {
 ```
 
 
-:::
+\end{col}
 
-::: {.col data-latex="{0.05\\textwidth}" style="width 5%;"}
-\ 
-<!-- an empty Div (with a white space), serving as
-a column separator -->
+\begin{col}{0.05\textwidth}
+~
 
-:::
+\end{col}
 
-::: {.col data-latex="{0.55\\textwidth}" style="width 55%;"}
-```{r, echo=FALSE, results='asis'}
-if(knitr::is_latex_output()) {
-	cat('\\vspace{0pt}')
-}
+\begin{col}{0.55\textwidth}
+
+\vspace{0pt}
+
+
+```{r child = 'tips_latex.Rmd'}
 ```
 
 
-```{r child = 'tips.Rmd'}
-```
+\end{col}
 
+\end{cols}
 
-:::
-::::::
 
 
 `r if(nrow(writing) > 0) { new_page() }`
@@ -217,7 +226,9 @@ if(knitr::is_latex_output()) {
 
 ```{r, echo=FALSE, results='asis'}
 if(nrow(writing) > 0) {
-	cat(paste0('### ', colorize("ESSAY", "54075B")))
+	#cat(paste0('### ', colorize("ESSAY", "54075B")))
+	cat('\\hypertarget{section-10}{%\n')
+	cat("\\subsubsection{\\texorpdfstring{\\textcolor[HTML]{54075B}{ESSAY}}{}}\\label{section-10}}\n")
 	cat('\n\n')
 	text <- writing[1,]$writingPrompt$sample
 	text <- unlist(strsplit(text, '\n'))
@@ -240,7 +251,9 @@ if(nrow(writing) > 0) {
 
 ```{r srl-results, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 if(nrow(srl) > 0) {
-	cat(paste0('### ', colorize("SELF-REGULATED LEARNING", '54075B')))
+	#cat(paste0('### ', colorize("SELF-REGULATED LEARNING", '54075B')))
+	cat('\\hypertarget{section-11}{%\n')
+	cat('\\subsubsection{\\texorpdfstring{\\textcolor[HTML]{54075B}{SELF-REGULATED LEARNING}}{}}\\label{section-11}}\n')
 	cat('\n\n')
 	
 	takenDate <- srl[1,]$takenDate + 0.0005 # See https://stackoverflow.com/questions/10931972/r-issue-with-rounding-milliseconds
@@ -319,3 +332,4 @@ if(nrow(srl) > 0) {
 	}
 }
 ```
+

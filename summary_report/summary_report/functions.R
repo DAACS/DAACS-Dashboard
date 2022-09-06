@@ -41,16 +41,15 @@ new_page <- function() {
 	}
 }
 
-# make_link <- function(text, url) {
-# 	if(knitr::is_latex_output() | TRUE) {
-# 		return(paste0("\\href{", url, "}{", text, "}"))
-# 	} else if(knitr::is_html_output()) {
-# 		return(paste0("<a href='", url, "' target='_new'>", text, "</a>"))
-# 	}
-# }
-
 make_link <- function(text, url) {
-	return(paste0('[', text, '](', url, ')'))
+	# return(paste0('[', text, '](', url, ')'))
+	if(knitr::is_latex_output()) {
+		sprintf("\\href{%s}{%s}", url, text)
+	} else if(knitr::is_html_output()) {
+		sprintf("<a href='%s'>%s</a>", url, text)
+	} else {
+		text
+	}
 }
 
 daacs_link <- function(assessment, domain, subdomain, takenDate, userId) {

@@ -1,0 +1,70 @@
+Results for each assessment and domain are listed on the left-hand side
+of this page. You can access your complete results at
+\url{`r daacs.base.url`}, or click on any domain for more detailed
+feedback. Below are some resources and tips that can help you be more
+prepared for college.
+
+\hypertarget{section-6}{%
+\subsubsection{\texorpdfstring{\textcolor[HTML]{54075B}{Self-Regulated Learning}}{}}\label{section-6}}
+
+\begin{itemize}
+\tightlist
+\item
+  See the last page of this document for specific tips you can start
+  using right away.
+\item
+  For more tips visit the Self-Regulated Learning Lab:
+  \href{https://srl.daacs.net}{srl.daacs.net}
+\end{itemize}
+
+\hypertarget{section-7}{%
+\subsubsection{\texorpdfstring{\textcolor[HTML]{54075B}{Writing}}{}}\label{section-7}}
+
+\begin{itemize}
+\tightlist
+\item
+  Visit the Online Writing Lab for tips on improving your writing
+  skills: \href{https://owl.excelsior.edu}{owl.excelsior.edu}
+\item
+  Schedule an appointment at the Writing Center to receive help with
+  your writing.
+\end{itemize}
+
+\hypertarget{section-8}{%
+\subsubsection{\texorpdfstring{\textcolor[HTML]{54075B}{Mathematics}}{}}\label{section-8}}
+
+\begin{itemize}
+\tightlist
+\item
+  Review the questions you answered incorrectly
+  \href{`r daacs.base.url`}{on the DAACS website}, and read
+  the explanations for the correct answers by clicking ``More Info'' for
+  each question within DAACS.
+\item
+  There are several free websites that can help you with your math
+  skills, such as \href{https://mathantics.com}{mathantics.com},
+  \href{https://mathsisfun.com}{mathsisfun.com}, and
+  \href{https://virtualnerd.com}{virtualnerd.com}
+\item
+  If math is an area of concern and importance for you, consider
+  scheduling an appointment with a tutor.
+\end{itemize}
+
+\hypertarget{section-9}{%
+\subsubsection{\texorpdfstring{\textcolor[HTML]{54075B}{Reading}}{}}\label{section-9}}
+
+\begin{itemize}
+\tightlist
+\item
+  Review the questions you answered incorrectly
+  \href{`r daacs.base.url`}{on the DAACS website}, and read
+  the explanations for the correct answers by clicking ``More Info'' for
+  each question within DAACS.
+\item
+  Visit the Online Reading Lab for tips on improving your reading
+  skills: \href{https://owl.excelsior.edu/orc}{owl.excelsior.edu/orc}
+\item
+  View the resources that are available at your library.
+\item
+  Consider scheduling an appointment with a tutor.
+\end{itemize}

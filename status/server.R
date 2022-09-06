@@ -234,21 +234,19 @@ function(input, output, session) {
 			if (user_permission == "admin") {
 				# output$data_title <- renderUI(tags$h2("Storms data. Permissions: admin"))
 				users <- get_users()
-				users$`_id` <- NULL
 				users$roles <- NULL
 				users <- users |>
 					mutate(COLLEGE_SKILLS = factor(COLLEGE_SKILLS),
 						   MATHEMATICS = factor(MATHEMATICS),
 						   READING = factor(READING),
 						   WRITING = factor(WRITING))
+				rows <- apply(users[,c('COLLEGE_SKILLS', 'MATHEMATICS', 'WRITING', 'READING')], 1, FUN = function(x) { any(!is.na(x))})
+				users$Summary_Report <- ''
+				users[rows,]$Summary_Report <- paste0(
+					"<a href='", summary_report_url, users[rows,'_id'], "' target='_new'>",
+					'PDF', "</a>")
+				users$`_id` <- NULL
 				output$table <- DT::renderDataTable(DT::datatable({
-						users
-						# rows <- users$DAACS_Complete
-						rows <- apply(users[,c('COLLEGE_SKILLS', 'MATHEMATICS', 'WRITING', 'READING')], 1, FUN = function(x) { any(!is.na(x))})
-						users$Summary_Report <- ''
-						users[rows,]$Summary_Report <- paste0(
-							"<a href='", summary_report_url, users[rows,'_id'], "' target='_new'>",
-							'PDF', "</a>")
 						users
 					},
 					escape = FALSE,

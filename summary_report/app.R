@@ -7,8 +7,8 @@ library(rmarkdown)
 
 # Test ID: my:   586d5bdee4b0a08f591fbf87
 #          UMGC: 62fcdd19409ae41ba6ed9fec
-# http://dashboard.daacs.net:3838/summaryreport/?userid=586d5bdee4b0a08f591fbf87
-# http://dashboard.daacs.net:3838/summaryreport/?userid=62fcdd19409ae41ba6ed9fec&institution=umgc
+# https://my.daacs.net/summaryreport/?userid=586d5bdee4b0a08f591fbf87
+# https://umgc.daacs.net/summaryreport/?userid=62fcdd19409ae41ba6ed9fec
 
 user_fields <- c('_id', 'username',
                  'firstName', 'lastName',
@@ -35,21 +35,8 @@ server <- function(input, output, session) {
         return(query[['userid']])
     })
 
-    getInstitution <- reactive({
-        query <- shiny::parseQueryString(session$clientData$url_search)
-        names(query) <- tolower(names(query))
-        institution <- query[['institution']]
-        if(is.null(institution)) {
-            institution <- ''
-        } else if(nchar(institution) > 0) {
-            institution <- paste0('-', institution)
-        }
-        return(institution)
-    })
-
     getUserData <- reactive({
-        institution <- getInstitution()
-        source(paste0('../config', institution, '.R'), local = TRUE)
+        source('../config.R', local = TRUE)
         URI <- paste0('mongodb://', mongo.user, ':', mongo.pass, '@',
                       mongo.host, ':', mongo.port, '/', mongo.db)
         m.users <- mongo(url = URI,
@@ -114,21 +101,18 @@ server <- function(input, output, session) {
             showModal(modalDialog("Generating your summary report. Please wait...", footer = NULL))
             on.exit(removeModal())
 
-            institution <- getInstitution()
-            config.file <- paste0('config', institution, '.R')
+            config.file <- 'config.R'
             username <- getUsername()
             name <- getName()
-            outfile <- paste0(institution, '_', name, '.pdf')
+            outfile <- paste0('DAACS_', name, '.pdf')
             outdir <- 'generated/'
 
-            rmdfile <- paste0('student_report', institution, '.Rmd')
-
-            # orig_wd <- setwd('summary_report')
-            rmarkdown::render(paste0('summary_report/', rmdfile),
+            rmarkdown::render(paste0('summary_report/', report_rmd_file),
                               output_dir = outdir,
                               output_file = outfile,
                               params = list(user = username,
-                                            config = paste0('../config/', config.file)),
+                                            config = paste0('../../config/', config.file),
+                                            tips_rmd = tips_rmd_file),
                               output_format = 'pdf_document',
                               runtime = 'static',
                               run_pandoc = TRUE,
@@ -138,7 +122,6 @@ server <- function(input, output, session) {
                 con = paste0(outdir, outfile),
                 what = "raw",
                 n = file.info(paste0(outdir, outfile))[, "size"])
-            # setwd(orig_wd)
             writeBin(rawfile, con = file)
         }
     )

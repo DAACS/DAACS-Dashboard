@@ -14,6 +14,9 @@ daacs.base.url <- paste0('https://', daacs.domain)
 
 summary_report_url <- '/summaryreport/?userid='
 
+report_rmd_file <- 'student_report_latex.Rmd'
+tips_rmd_file <- 'tips_latex.Rmd'
+
 # user database for logins
 user_base <- tibble::tibble(
 	user = c("admin"),

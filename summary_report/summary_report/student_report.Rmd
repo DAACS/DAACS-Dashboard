@@ -17,6 +17,7 @@ params:
   num_tips: 3
   user: jbryer@excelsior.edu
   config: ../../config.R
+  tips_rmd: tips.Rmd
 ---
 
 ```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
@@ -106,7 +107,7 @@ if(nrow(srl) > 0) {
 		cat(paste0(getDotsImage(srl[1,]$domainScores[[1]][i,]$rubricScore), ' ',
 				   # capitalize(srl[1,]$domainScores[[1]][i,]$domainId),
 				   href,
-				   '  \n'))
+				   '   \n'))
 		}
 	cat('\n')
 }
@@ -130,7 +131,7 @@ if(nrow(writing) > 0) {
 		cat(paste0(getDotsImage(writing[1,]$domainScores[[1]][i,]$rubricScore), ' ',
 				   # capitalize(writing[1,]$domainScores[[1]][i,]$domainId),
 				   href,
-				   '  \n'))
+				   '   \n'))
 	}
 	cat('\n')
 } else {
@@ -154,7 +155,7 @@ if(nrow(math) > 0) {
     cat(paste0(getDotsImage(math[1,]$domainScores[[1]][i,]$rubricScore), ' ',
     		   # capitalize(math[1,]$domainScores[[1]][i,]$domainId),
     		   href,
-               '  \n'))
+               '   \n'))
   }
   cat('\n')
 } else {
@@ -178,7 +179,7 @@ if(nrow(read) > 0) {
     cat(paste0(getDotsImage(read[1,]$domainScores[[1]][i,]$rubricScore), ' ',
     		   # capitalize(read[1,]$domainScores[[1]][i,]$domainId),
     		   href,
-               '  \n'))
+               '   \n'))
   }
   cat('\n')
 } else {
@@ -204,9 +205,13 @@ if(knitr::is_latex_output()) {
 ```
 
 
-```{r child = 'tips.Rmd'}
+```{r, eval=FALSE, results='asis', results='hide', echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+res <- knitr::knit_child(params$tips_rmd, quiet = TRUE)
+cat(res, sep = '\n')
 ```
 
+```{r, child='tips.Rmd'}
+```
 
 :::
 ::::::

@@ -1,0 +1,41 @@
+Results for each assessment and domain are listed on the left-hand side of this page. You can access your complete results at `r daacs.base.url`, or click on any domain for more detailed feedback. Below are some resources and tips that can help you be more prepared for college. You can also consider scheduling an appointment with a tutor: \url{https://www.umgc.edu/current-students/learning-resources/tutoring/undergraduate-tutoring}
+
+\hypertarget{section-6}{%
+\subsubsection{\texorpdfstring{\textcolor[HTML]{54075B}{Self-Regulated Learning}}{}}\label{section-6}}
+
+\begin{itemize}
+\tightlist
+\item See the last page of this document for specific tips you can start using right away.
+\item For more tips visit the Self-Regulated Learning Lab: \url{https://srl.daacs.net}
+\item Check out these learner support videos for tips on how to be a successful student: \url{https://www.umgc.edu/current-students/learning-resources/learner-support-videos}
+\end{itemize}
+
+\hypertarget{section-7}{%
+\subsubsection{\texorpdfstring{\textcolor[HTML]{54075B}{Writing}}{}}\label{section-7}}
+
+\begin{itemize}
+\tightlist
+\item Visit the Online Writing Lab for tips on improving your writing skills: \url{https://owl.excelsior.edu}
+\item Schedule an appointment at the Effective Writing Center to receive assistance with your writing:
+\url{https://www.umgc.edu/current-students/learning-resources/writing-center}
+\item Check out the resources available at the UMGC library that can assist you with writing and citing: \url{https://libguides.umgc.edu/gethelp/writing-citing}
+\end{itemize}
+
+\hypertarget{section-8}{%
+\subsubsection{\texorpdfstring{\textcolor[HTML]{54075B}{Mathematics}}{}}\label{section-8}}
+
+\begin{itemize}
+\tightlist
+\item Review the questions you answered incorrectly at \url{https://umgc.daacs.net}, and read the explanations for the correct answers by clicking "More Info" for each question within DAACS.
+\item There are several free websites that can help you with your math skills, such as \url{https://mathantics.com}, \url{https://mathsisfun.com}, and \url{https://virtualnerd.com}
+\end{itemize}
+
+\hypertarget{section-9}{%
+\subsubsection{\texorpdfstring{\textcolor[HTML]{54075B}{Reading}}{}}\label{section-9}}
+
+\begin{itemize}
+\tightlist
+\item Review the questions you answered incorrectly at \url{https://umgc.daacs.net}, and read the explanations for the correct answers by clicking "More Info" for each question within DAACS.
+\item Visit the Online Reading Lab for tips on improving your reading skills: \url{https://owl.excelsior.edu/orc}
+\item View the resources that are available at the UMGC library: \url{https://libguides.umgc.edu/home}
+\end{itemize}

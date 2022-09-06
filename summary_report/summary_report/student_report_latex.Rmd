@@ -17,6 +17,7 @@ params:
   num_tips: 3
   user: jbryer@excelsior.edu
   config: ../../config.R
+  tips_rmd: tips_latex.Rmd
 ---
 
 ```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
@@ -211,7 +212,9 @@ if(nrow(read) > 0) {
 \vspace{0pt}
 
 
-```{r child = 'tips_latex.Rmd'}
+```{r, echo=FALSE, results='asis'}
+res <- knitr::knit_child(params$tips_rmd, quiet = TRUE)
+cat(res, sep = '\n')
 ```
 
 

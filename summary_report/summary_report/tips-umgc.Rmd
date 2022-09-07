@@ -1,0 +1,28 @@
+Results for each assessment and domain are listed on the left-hand side of this page. You can access your complete results at `r daacs.base.url`, or click on any domain for more detailed feedback. Below are some resources and tips that can help you be more prepared for college. You can also consider scheduling an appointment with a tutor:
+[umgc.edu/current-students/learning-resources/tutoring/undergraduate-tutoring](https://www.umgc.edu/current-students/learning-resources/tutoring/undergraduate-tutoring)
+
+
+### `r colorize("Self-Regulated Learning", "54075B")`
+
+* See the last page of this document for specific tips you can start using right away.
+* For more tips visit the Self-Regulated Learning Lab: [srl.daacs.net](https://srl.daacs.net)
+* Check out these learner support videos for tips on how to be a successful student: [umgc.edu/current-students/learning-resources/learner-support-videos](https://www.umgc.edu/current-students/learning-resources/learner-support-videos)
+
+### `r colorize("Writing", "54075B")`
+
+* Visit the Online Writing Lab for tips on improving your writing skills: [owl.excelsior.edu](https://owl.excelsior.edu)
+* Schedule an appointment at the Effective Writing Center to receive assistance with your writing:
+[umgc.edu/current-students/learning-resources/writing-center](https://www.umgc.edu/current-students/learning-resources/writing-center)
+* Check out the resources available at the UMGC library that can assist you with writing and citing: [libguides.umgc.edu/gethelp/writing-citing](https://libguides.umgc.edu/gethelp/writing-citing)
+
+### `r colorize("Mathematics", "54075B")`
+
+* Review the questions you answered incorrectly at [umgc.daacs.net](https://umgc.daacs.net), and read the explanations for the correct answers by clicking "More Info" for each question within DAACS.
+* If math is an area of concern and importance for you, consider scheduling an appointment with a tutor: [umgc.edu/current-students/learning-resources/tutoring/undergraduate-tutoring](https://www.umgc.edu/current-students/learning-resources/tutoring/undergraduate-tutoring)
+
+### `r colorize("Reading", "54075B")`
+
+* Visit the Online Reading Lab for tips on improving your reading skills: [owl.excelsior.edu/orc](https://owl.excelsior.edu/orc)
+* View the resources that are available at the UMGC library: [libguides.umgc.edu/home](https://libguides.umgc.edu/home)
+* Consider scheduling an appointment with a tutor:
+[umgc.edu/current-students/learning-resources/tutoring/undergraduate-tutoring](https://www.umgc.edu/current-students/learning-resources/tutoring/undergraduate-tutoring)

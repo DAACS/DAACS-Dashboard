@@ -17,7 +17,7 @@ params:
   num_tips: 3
   user: jbryer@excelsior.edu
   config: ../../config.R
-  tips_rmd: tips_latex.Rmd
+  tips_rmd: tips_latex-umgc.Rmd
 ---
 
 ```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE, error=FALSE}

@@ -5,6 +5,8 @@ library(mongolite)
 library(rmarkdown)
 # library(shinycookie) # remotes::install_github("colearendt/shinycookie")
 
+source('../config.R')
+
 # Test ID: my:   586d5bdee4b0a08f591fbf87
 #          UMGC: 62fcdd19409ae41ba6ed9fec
 # https://my.daacs.net/summaryreport/?userid=586d5bdee4b0a08f591fbf87
@@ -111,7 +113,7 @@ server <- function(input, output, session) {
                               output_dir = outdir,
                               output_file = outfile,
                               params = list(user = username,
-                                            config = paste0('../../config/', config.file),
+                                            config = paste0('../../', config.file),
                                             tips_rmd = tips_rmd_file),
                               output_format = 'pdf_document',
                               runtime = 'static',

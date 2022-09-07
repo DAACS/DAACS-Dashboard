@@ -35,7 +35,6 @@ Results for each assessment and domain are listed on the left-hand side of this 
 
 \begin{itemize}
 \tightlist
-\item Review the questions you answered incorrectly at \url{https://umgc.daacs.net}, and read the explanations for the correct answers by clicking "More Info" for each question within DAACS.
 \item Visit the Online Reading Lab for tips on improving your reading skills: \url{https://owl.excelsior.edu/orc}
 \item View the resources that are available at the UMGC library: \url{https://libguides.umgc.edu/home}
 \end{itemize}

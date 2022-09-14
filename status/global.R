@@ -6,7 +6,7 @@ library(shinydashboard)
 library(shinyWidgets)
 library(reshape2)
 
-source('../config.R')
+source('../config/config-albany.R')
 
 assessment_labels <- c(COLLEGE_SKILLS = 'SRL',
 					   WRITING = 'Writing',

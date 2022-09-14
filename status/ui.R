@@ -24,6 +24,7 @@ navbarPage(
 			),
 			tabBox(
 				id = 'access_plots',
+				tabPanel('New Users', plotOutput('new_users_plot')),
 				tabPanel('Assessments', plotOutput('assessments_by_date_plot')),
 				tabPanel('Page Views', plotOutput('page_view_plot'))
 			)

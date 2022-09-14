@@ -172,6 +172,20 @@ function(input, output, session) {
 		assessment_plot(get_assessments(), 'MATHEMATICS')
 	})
 
+	##### New Users plot #######################################################
+	output$new_users_plot <- renderPlot({
+		users <- get_users()
+		tab <- users$createdDate |>
+			as.Date() |>
+			table() |>
+			as.data.frame() |>
+			mutate(Var1 = as.Date(as.character(Var1)))
+		ggplot(tab, aes(x = Var1, y = Freq)) +
+			geom_path() +
+			xlab('Date') + ylab('New Users') +
+			ggtitle('New Users per Day')
+	})
+
 	##### Page views plot ######################################################
 	output$page_view_plot <- renderPlot({
 		tmp <- get_events()

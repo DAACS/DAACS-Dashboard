@@ -2,7 +2,7 @@
 # title: DAACS Summary Report
 output:
   pdf_document:
-    keep_tex: true
+    keep_tex: false
     keep_md: false
     includes:
       in_header: columns.tex

@@ -2,7 +2,7 @@
 # title: DAACS Summary Report
 output:
   pdf_document:
-    keep_tex: true
+    keep_tex: false
     keep_md: false
     includes:
       in_header: columns.tex
@@ -15,20 +15,19 @@ editor_options:
   chunk_output_type: console
 params:
   num_tips: 3
-  # user: davidwfranklinjr@gmail.com
-  # config: ../config/config.R
-  user: "jason@bryer.org"
-  config: "../config/config-umgc.R"
+  user: Dawkinsdeandre@gmail.com # Angelo Dicaprio
+  config: ../config/config-umgc.R
 ---
 
 ```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE, error=FALSE}
 if(FALSE) { # For debugging
-	params <- list(user = 'jason@bryer.org', config = '../config/config-umgc.R')
+	params <- list(user = 'davidwfranklinjr@gmail.com',	config = '../config/config.R')
 }
 
 library(mongolite)
 library(tidyverse)
 library(psych)
+library(stringi)
 
 source(params$config)
 
@@ -113,6 +112,7 @@ srl_tips <- c(
 
 # source('../R/local_users.R')
 
+library(mongolite)
 URI <- paste0('mongodb://', mongo.user, ':', mongo.pass, '@',
 			  mongo.host, ':', mongo.port, '/', mongo.db)
 # m.users <- mongo(url = URI, collection = mongo.collection.users)
@@ -197,9 +197,7 @@ capitalize <- function(str) {
 }
 
 getDots <- function(str) {
-	if(is.null(str)) {
-		return(0)
-	} else if(is.na(str)) {
+	if(is.null(str) | is.na(str)) {
 		return(0)
 	} else if(str == 'LOW') {
 		return(1)
@@ -250,12 +248,14 @@ if(nrow(results) > 0) {
 
 
 
-```{r logo, echo=FALSE, results='asis'}
+```{r, echo=FALSE, results='asis'}
 if(knitr::is_html_output()) {
 	cat('<img src="DAACS_logo.png" height="70px" align="right" />\n')
 } else if(knitr::is_latex_output()) {
 	cat('\\begin{wrapfigure}{r}{0.5\\textwidth}\\centering\\vspace{-20pt}\\hspace*{2cm}\\includegraphics[width=0.5\\textwidth]{DAACS_logo.png}\\end{wrapfigure}\n\n')
 }
+
+# name <- 'Alex Lifeson'
 ```
 
 
@@ -430,14 +430,17 @@ Results for each assessment and domain are listed on the left-hand side of this 
 `r if(nrow(writing) > 0) { new_page() }`
 
 
-```{r, echo=FALSE, results='asis'}
+```{r, echo=FALSE, results='asis', eval=TRUE}
 if(nrow(writing) > 0) {
 	cat(paste0('### ', colorize("ESSAY", "54075B")))
 	cat('\n\n')
 	text <- writing[1,]$writingPrompt$sample
 	text <- unlist(strsplit(text, '\n'))
 	text <- trimws(text)
+	text <- stringi::stri_trans_general(text, "latin-ascii")
 	
+	text <- gsub('\\[', '', text)
+	text <- gsub('\\]', '', text)
 	# text <- gsub('\n', '\n\n', text)
 	# text <- gsub('\t', '', text)
 	# text <- gsub('^\\s*', '', text)

@@ -14,11 +14,8 @@ editor_options:
   chunk_output_type: console
 params:
   num_tips: 3
-  # user: jbryer@excelsior.edu
-  # user: davidwfranklinjr@gmail.com
-  # config: ../config/config.R
-  user: fc575518
-  config: ../config/config-albany.R
+  user: jbryer@excelsior.edu
+  config: ../config/config.R
 ---
 
 ```{r setup, echo=FALSE, results='hide', message=FALSE, warning=FALSE, error=FALSE}

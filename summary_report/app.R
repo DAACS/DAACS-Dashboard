@@ -48,8 +48,10 @@ server <- function(input, output, session) {
         if(is.null(userId)) {
             return(NULL)
         }
-        user <- m.users$find(paste0('{"_id":{"$oid":"', userId, '"}}'),
-                             fields = user_fields)
+        user <- m.users$find(paste0('{"_id":"', userId, '"}'), fields = user_fields)
+        if(nrow(user) == 0) {
+            user <- m.users$find(paste0('{"_id":{"$oid":"', userId, '"}}'), fields = user_fields)
+        }
         if(nrow(user) == 0) {
             return(NULL)
         }
